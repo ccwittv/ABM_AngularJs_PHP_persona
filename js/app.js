@@ -1,9 +1,10 @@
 
-var app = angular.module('ABMangularPHP', []);
+var app = angular.module('ABMangularPHP', []);//primer parametro es el nombre de modulo. puede tener muchos modulos
 
 
 app.controller('controlMenu', function($scope, $http) {
-  $scope.DatoTest="**Menu**";
+  $scope.DatoTest="**Lopez**";//el scope significa que se puede ver desde el js y html
+   $scope.OtroDato="**Witt**";
 });
 
 
@@ -17,12 +18,14 @@ app.controller('controlAlta', function($scope, $http) {
   $scope.persona.apellido= "natalia" ;
   $scope.persona.foto="sinfoto";
 
+  $scope.mascota={"nombre":"Rocco", "tipo":"Perro", "cumpleanos":new Date()};
+
 
   $scope.Guardar=function(){
 
 
-  	console.log("persona a guardar:");
-    console.log($scope.persona);
+  	console.log("macota a guardar:");
+    console.log($scope.mascota);
 
     /*
     $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
