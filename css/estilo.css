@@ -1,8 +1,45 @@
+/*Estilos para error
+AngularJS adds CSS classes to forms and input fields depending on their states.
+
+The following classes are added to, or removed from, input fields:
+
+ng-untouched The field has not been touched yet
+ng-touched The field has been touched
+ng-pristine The field has not been  modified yet
+ng-dirty The field has been modified
+ng-valid The field content is valid
+ng-invalid The field content is not valid
+ng-valid-key One key for each validation. Example: ng-valid-required, useful when there are more than one thing that must be validated
+ng-invalid-key Example: ng-invalid-required
+The following classes are added to, or removed from, forms:
+
+ng-pristine No fields has not been modified yet
+ng-dirty One or more fields has been modified
+ng-valid The form content is valid
+ng-invalid The form content is not valid
+ng-valid-key One key for each validation. Example: ng-valid-required, useful when there are more than one thing that must be validated
+ng-invalid-key Example: ng-invalid-required
+The classes are removed if the value they represent is false.
+
+Add styles for these classes to give your application a better and more intuitive user interface.
+*/
+input.ng-invalid {
+    background-color: red;
+}
+/*input.ng-valid {
+    background-color: lightgreen;
+}*/
+
+span{
+      color: black;
+    }
+
 input[type="text"]{
 
   display: block;
   color:black;
 height: 3em;
+width: 100%;
 }
 .nav-tabs {
     border-bottom: 1px solid #151313 !important;

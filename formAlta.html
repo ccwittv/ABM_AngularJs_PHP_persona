@@ -51,18 +51,26 @@
 			<center> <h1>Datos {{DatoTest}}</h1>   </center>     
 		</div>
 		<div class="CajaInicio animated bounceInRight">
-			<h1> <!--?php echo $titulo; ?-->titulo {{mascota}}</h1>
-
-			<form id="FormIngreso"  enctype="multipart/form-data" >
-				<input type="text" name="apellido" ng-model="mascota.apellido" placeholder="ingrese apellido" value="" />
+			<!--<h1> ?php echo $titulo; ?--> <!-- titulo {{mascota}}</h1>-->
+			<h1> <!--?php echo $titulo; ?--> titulo </h1>
+			<form id="FormIngreso" name="FormIngreso" enctype="multipart/form-data" >
+				
+				<!--<input type="text" name="apellido" ng-model="mascota.apellido" placeholder="ingrese apellido" value="" />
 				<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
 				</span>
 
 				<input type="text" name="tipo" ng-model="mascota.tipo" placeholder="ingrese tipo de mascota" value="" />
 				<span id="lblTipo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
-				</span>
+				</span>-->
 				
-				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="ingrese nombre" value="" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<input type="checkbox" ng-model="verdatos" ng-checked="" value="verdatos">
+				<span> {{verdatos}} </span>
+				<br>
+
+				<input type="text" name="apellido" ng-model="persona.apellido" ng-if="verdatos" placeholder="ingrese apellido" value="" />
+				<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
+				</span>
+				<input type="text" name="nombre" ng-model="persona.nombre" ng-show="verdatos" placeholder="ingrese nombre" value="" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 				<input type="text" name="dni" ng-model="persona.dni" placeholder="ingrese dni" value=""     /> 
 				<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 				<p style='color: black;'>*El DNI no se puede modificar.</p> ": "" ; ?>
@@ -76,7 +84,12 @@
 				<p style="  color: black;">*La foto se actualiza al guardar.</p>
 				-->
 
-				<a class="btn btn-info " name="guardar" ng-click="Guardar(21)" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
+				<label  >password:</label>
+				<input type="password"  ng-model="persona.password"   placeholder="ingrese password" value="" /> 
+				<label  >reingrese password:</label>
+				<input type="password"  ng-model="persona.copiapassword"   placeholder="reingrese password" value="" /> 
+
+				<a class="btn btn-info " name="guardar" ng-disabled="persona.password != persona.copiapassword" ng-click="Guardar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
 					
 				<input type="hidden" value="" id="idParaModificar" name="agregar" />
 				<input type="hidden" value="" id="hdnAgregar" name="agregar" />

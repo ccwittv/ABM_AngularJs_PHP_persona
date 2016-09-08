@@ -14,19 +14,22 @@ app.controller('controlAlta', function($scope, $http) {
 //inicio las variables
   $scope.persona={}; //se define un objeto de tipo json vacío. Si no se define los datos no salen en el formAlta.html
   $scope.persona.nombre= "natalia" ;
-  $scope.persona.dni= "12312312" ;
+  $scope.persona.dni= "444412312" ;
   $scope.persona.apellido= "natalia" ;
   $scope.persona.foto="sinfoto";
 
-  $scope.mascota={"nombre":"Rocco", "tipo":"Perro", "cumpleanos":new Date()};
+  //$scope.mascota={"nombre":"Rocco", "tipo":"Perro", "cumpleanos":new Date()};
 
 
   $scope.Guardar=function(iva){
 
-    console.log("Se pasa el porcentaje del iva por parámetro");
+    console.log("persona a guardar:");
+    console.log($scope.persona);
+
+    /*console.log("Se pasa el porcentaje del iva por parámetro");
     console.log(iva);
   	console.log("Mascota a guardar:");
-    console.log($scope.mascota);
+    console.log($scope.mascota);*/
 
     /*
     $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
