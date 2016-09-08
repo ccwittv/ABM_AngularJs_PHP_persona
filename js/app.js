@@ -47,8 +47,24 @@ app.controller('controlAlta', function($scope, $http) {
 
 app.controller('controlGrilla', function($scope, $http) {
   	$scope.DatoTest="**grilla**";
- 	
- /*	$http.get('PHP/nexo.php', { params: {accion :"traer"}})
+  console.log("Estoy en la grilla");
+  //En esta parte se consumen los datos en forma asincrónica. Es nuestro AJAX.
+  $http.get('http://www.mocky.io/v2/57d124811000002c17208d9d')
+    .then(function(respuesta){
+      //aca va la respuesta
+      console.info("volvio", respuesta.data);
+      $scope.ListadoPersonas = respuesta.data;
+
+    },function(error){
+      //aca van los errores
+      $scope.ListadoPersonas= [];
+      console.log(error);
+      console.info("Cuidado Error!!!:", error);
+
+    })  
+
+  //Esta parte es la llamada a nuestra base mysql local para consumir datos.
+ 	/*$http.get('PHP/nexo.php', { params: {accion :"traer"}})
  	.then(function(respuesta) {     	
 
       	 $scope.ListadoPersonas = respuesta.data.listado;
