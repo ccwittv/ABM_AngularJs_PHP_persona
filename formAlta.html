@@ -15,7 +15,7 @@
 
 <!-- 1)Es necesario para que funcione angular la referencia a este archivo-->
 	<script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
-<!-- 2) es necesario para que funcione tener la referencia al archivo con la aplicacion, los controler. etc-->	
+<!-- 2) es necesario para que funcione tener la referencia al archivo con la aplicacion, los controller. etc-->	
  	<script SRC="js/app.js" TYPE="text/javascript"></script>
 </head>
 <body ng-app="ABMangularPHP" ng-controller="controlAlta">
@@ -42,7 +42,7 @@
 		         		<span class="glyphicon glyphicon-th" >&nbsp;</span>
 		         			Grilla</a>
 		         		</li>
-		        	<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM {{otroDato}}- PHP - Angular Versión 1.0.1 &nbsp;&nbsp;&nbsp;</span>
+		        	<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM - PHP - Angular Versión 1.0.1 &nbsp;&nbsp;&nbsp;</span>
       </ul>
 		
 
@@ -57,6 +57,11 @@
 				<input type="text" name="apellido" ng-model="mascota.apellido" placeholder="ingrese apellido" value="" />
 				<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
 				</span>
+
+				<input type="text" name="tipo" ng-model="mascota.tipo" placeholder="ingrese tipo de mascota" value="" />
+				<span id="lblTipo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
+				</span>
+				
 				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="ingrese nombre" value="" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 				<input type="text" name="dni" ng-model="persona.dni" placeholder="ingrese dni" value=""     /> 
 				<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
@@ -71,7 +76,7 @@
 				<p style="  color: black;">*La foto se actualiza al guardar.</p>
 				-->
 
-				<a class="btn btn-info " name="guardar" ng-click="Guardar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
+				<a class="btn btn-info " name="guardar" ng-click="Guardar(21)" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
 					
 				<input type="hidden" value="" id="idParaModificar" name="agregar" />
 				<input type="hidden" value="" id="hdnAgregar" name="agregar" />
