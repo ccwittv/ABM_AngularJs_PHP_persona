@@ -52,7 +52,7 @@ app.controller('controlGrilla', function($scope, $http) {
   	$scope.DatoTest="**grilla**";
   console.log("Estoy en la grilla");
   //En esta parte se consumen los datos en forma asincrónica. Es nuestro AJAX.
-  $http.get('http://www.mocky.io/v2/57d124811000002c17208d9d')
+  $http.get('http://www.mocky.io/v2/57dac8f40f00005a008b6f28')
     .then(function(respuesta){
       //aca va la respuesta
       console.info("volvio", respuesta.data);
