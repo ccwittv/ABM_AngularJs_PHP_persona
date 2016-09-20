@@ -1,4 +1,4 @@
-   <ul class="nav nav-tabs">
+ <!--   <ul class="nav nav-tabs">
 		         <li  class="btn btn-info animated bounceInLeft" >
 		         	<a href="index.html">
 		         		 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
@@ -18,7 +18,7 @@
 		         		</li>
 		        	<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}} {{OtroDato}} ABM - PHP - Angular Versión 1.0.2 &nbsp;&nbsp;&nbsp;</span>
       </ul>
-		
+		 -->
 
 	
 	  <div class="container">
@@ -28,7 +28,7 @@
 	  	 
 		           
 					<div class="CajaInicio animated bounceInRight">
-							<h1>PERSONAS</h1>
+							<h1>PERSONAS {{DatoTest}} {{OtroDato}}</h1>
 						
 							<form id="FormIngreso">
  										
@@ -39,9 +39,9 @@
 									      <h4 class="list-group-item-heading">Alta de Personas</h4>
 									    </button>
 										
-										<a href="formGrilla.html" class="list-group-item  list-group-item list-group-item-info">
+										<button ng-click="iraGrilla()" class="list-group-item  list-group-item list-group-item-info">
 									      <h4 class="list-group-item-heading">Grilla de Personas</h4>
-									    </a>
+									    </button>
 									
 									  </div>
 									

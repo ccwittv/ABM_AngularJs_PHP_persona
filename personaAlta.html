@@ -1,4 +1,4 @@
- <ul class="nav nav-tabs">
+ <!-- <ul class="nav nav-tabs">
 		         <li  class="btn btn-info animated bounceInLeft" >
 		         	<a href="index.html">
 		         		 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
@@ -17,7 +17,7 @@
 		         			Grilla</a>
 		         		</li>
 		        	<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM - PHP - Angular Versión 1.0.1 &nbsp;&nbsp;&nbsp;</span>
-      </ul>
+      </ul> -->
 		
 
 	<div class="container">
@@ -37,7 +37,7 @@
 				<span id="lblTipo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
 				</span>-->
 				
-				<input type="checkbox" ng-model="verdatos" ng-checked="" value="verdatos">
+				<input type="checkbox" ng-model="verdatos" ng-checked="verdatos" value="verdatos">
 				<span> {{verdatos}} </span>
 				<br>
 
@@ -58,12 +58,14 @@
 				<p style="  color: black;">*La foto se actualiza al guardar.</p>
 				-->
 
-				<label  >password:</label>
+				<!-- <label  >password:</label>
 				<input type="password"  ng-model="persona.password"   placeholder="ingrese password" value="" /> 
 				<label  >reingrese password:</label>
 				<input type="password"  ng-model="persona.copiapassword"   placeholder="reingrese password" value="" /> 
 
-				<a class="btn btn-info " name="guardar" ng-disabled="persona.password != persona.copiapassword" ng-click="Guardar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
+				<a class="btn btn-info " name="guardar" ng-disabled="persona.password != persona.copiapassword" ng-click="Guardar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a> -->
+
+				<a class="btn btn-info " name="guardar" ng-click="Guardar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a> -->
 					
 				<input type="hidden" value="" id="idParaModificar" name="agregar" />
 				<input type="hidden" value="" id="hdnAgregar" name="agregar" />
