@@ -6,7 +6,7 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 			"inicio",
 			{
 				url:'/inicio',
-				templateUrl: 'inicio.html',
+				templateUrl: 'vistas/inicio.html',
 				controller: "controlInicio"
 			}
 		  )
@@ -15,7 +15,8 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 			"persona", {
 				url: "/persona",
 				abstract: true,
-				templateUrl: 'abstractaPersona.html',
+				templateUrl: 'vistas/ABMpersona/abstractaPersona.html',
+        controller : 'controlPersona'
 			}
 			)
 
@@ -24,7 +25,7 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 				url: "/menu",
 				views: {
 					"contenido":{
-						templateUrl: 'personaMenu.html',
+						templateUrl: 'vistas/ABMpersona/personaMenu.html',
 						controller: "controlPersonaMenu"
 
 					}
@@ -40,7 +41,7 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 				url: "/alta",
 				views: {
 					"contenido":{
-						templateUrl: 'personaAlta.html',
+						templateUrl: 'vistas/ABMpersona/personaAlta.html',
 						controller: "controlPersonaAlta"
 
 					}
@@ -56,7 +57,7 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 				url: "/grilla",
 				views: {
 					"contenido":{
-						templateUrl: 'personaGrilla.html',
+						templateUrl: 'vistas/ABMpersona/personaGrilla.html',
 						controller: "controlPersonaGrilla"
 
 					}
@@ -71,10 +72,15 @@ miApp.config(function($stateProvider,$urlRouterProvider){
     $urlRouterProvider.otherwise("inicio");
 	});	
 
-miApp.controller("controlInicio", function($scope){
+miApp.controller("controlInicio", function($scope, $http){
 
 
 
+});
+
+miApp.controller('controlPersona', function($scope, $http) {
+  $scope.DatoTest="**Menu Persona en la abstracta**";
+  $scope.OtroDato="Inicio y presentacion de la WEB"
 });
 
 miApp.controller("controlPersonaMenu", function($scope, $state, $http){
