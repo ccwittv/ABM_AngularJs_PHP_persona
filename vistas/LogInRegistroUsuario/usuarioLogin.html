@@ -1,0 +1,45 @@
+	     
+	<div class="container">
+		<div class="page-header">
+			<center> <h1>Login Angular</h1>   </center>     
+		</div>
+
+		<div class="CajaInicio animated bounceInRight">
+			<h1>LOGIN</h1>
+			<form name="FormLogin" ng-show="!loggedIn && !loggedIncorrecto" class="well" novalidate>
+				<spinner name="html5spinner" ng-cloak="">
+		          <div class="overlay"></div>
+		          <div class="spinner">
+		            <div class="double-bounce1"></div>
+		            <div class="double-bounce2"></div>
+		          </div>
+		          <div class="please-wait">Por favor, espere...</div>
+		        </spinner>
+				<div class="form-group">
+					<input type="email" name="email" ng-model="usuario.email" placeholder="ingrese email" required>
+					<span ng-show="FormLogin.email.$error.required">El email es requerido</span>
+					<span ng-show="FormLogin.email.$error.email">El email es invalido</span>
+				</div>
+
+				<div class="form-group">
+					<input type="password" name="password" ng-model="usuario.password" ng-minlength="7" placeholder="ingrese contrasena" required>
+					<span ng-show="FormLogin.password.$error.required">La contraseña es requerida</span>
+					<span ng-show="FormLogin.password.$error.minlength">La contraseña debe tener como minimo 7 caracteres</span>
+				</div>
+
+				<p>
+				<button class="btn btn-info " ng-disabled="FormLogin.$dirty && FormLogin.$invalid && FormLogin.password.minlength != 7" 
+				   ng-click="$event.preventDefault();Login();" ><span class="glyphicon glyphicon-save">&nbsp;</span>Ingresar</button>
+				</p>
+			</form>
+			<div ng-show="loggedIn" ng-cloak="" class="alert alert-success text-center">
+			  <span ng-click="loggedIn = false;" class="glyphicon glyphicon-remove pull-right"></span>
+        		<h2>Ingreso correcto!!!</h2>
+      		</div>
+      		<div ng-show="loggedIncorrecto" ng-cloak="" class="alert alert-danger text-center">
+			  <span ng-click="loggedIncorrecto = false;" class="glyphicon glyphicon-remove pull-right"></span>
+        		<h2>Ingreso INCORRECTO!!!</h2>
+      		</div>
+			
+		</div>
+	</div>    

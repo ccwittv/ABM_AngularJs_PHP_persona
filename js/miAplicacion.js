@@ -1,4 +1,4 @@
-var miApp = angular.module("AngularABM",['ui.router']);
+var miApp = angular.module("AngularABM",['ui.router','angularSpinners']);
 
 miApp.config(function($stateProvider,$urlRouterProvider){
 	$stateProvider
@@ -11,6 +11,63 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 			}
 		  )
 		
+    .state(
+      "usuario", {
+        url: "/usuario",
+        abstract: true,
+        templateUrl: 'vistas/LogInRegistroUsuario/abstractaUsuario.html',
+        controller : 'controlUsuario'
+      }
+      )
+
+    .state(
+      "usuario.menu", {
+        url: "/menu",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/LogInRegistroUsuario/usuarioMenu.html',
+            controller: "controlUsuarioMenu"
+
+          }
+          
+          
+        }
+
+      }
+      )
+
+    .state(
+      "usuario.login", {
+        url: "/login",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/LogInRegistroUsuario/usuarioLogin.html',
+            controller: "controlUsuarioLogin"
+
+          }
+          
+          
+        }
+
+      }
+      )
+
+    .state(
+      "usuario.registro", {
+        url: "/registro",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/LogInRegistroUsuario/usuarioRegistro.html',
+            controller: "controlUsuarioRegistro"
+
+          }
+          
+          
+        }
+
+      }
+      )
+
 		.state(
 			"persona", {
 				url: "/persona",
@@ -74,7 +131,77 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 
 miApp.controller("controlInicio", function($scope, $http){
 
+});
 
+miApp.controller('controlUsuario', function($scope, $http) {
+  $scope.DatoTest="**Menu Usuario en la abstracta**";
+});
+
+miApp.controller('controlUsuarioMenu', function($scope, $state, $http) {
+
+  $scope.iraLogin = function(){
+
+    $state.go("usuario.login");
+
+  }
+
+  $scope.iraRegistro = function(){
+
+    $state.go("usuario.registro");
+
+  }
+
+
+});
+
+miApp.controller('controlUsuarioLogin', function($scope, $timeout, spinnerService, $http) {
+
+    $scope.usuario={};
+    $scope.usuario.email = "fede@fede.com";
+    $scope.usuario.password = "federico";
+
+    $scope.Login= function () {
+      console.log("login a retener:");
+      console.log($scope.usuario);
+      spinnerService.show('html5spinner');
+       if  (( $scope.usuario.email == "fede@fede.com" &&
+            $scope.usuario.password == "federico") ||
+            ( $scope.usuario.email == "cwitt@cwitt.com" &&
+            $scope.usuario.password == "1234567" ))
+         {
+            $timeout(function () {
+            spinnerService.hide('html5spinner');
+            $scope.loggedIn = true;}, 2500);
+         }
+        else
+         {
+            $timeout(function () {
+            spinnerService.hide('html5spinner');
+            $scope.loggedIncorrecto = true;}, 2500);
+         }             
+    };
+  });
+
+miApp.controller('controlUsuarioRegistro', function($scope, $http) {
+
+  $scope.usuario={};
+  $scope.usuario.nombre = "Juan";
+  $scope.usuario.apellido = "Gonzalez";
+  $scope.usuario.edad = 38;
+  $scope.usuario.sexo = "Masculino";
+  $scope.usuario.dni = 23444444;
+  $scope.usuario.estado = "opcion1";
+  $scope.usuario.fechaNacimiento = new Date("1999-03-25");
+  $scope.usuario.email = "juan@juan.com";
+  $scope.usuario.password = "contrasena";
+  $scope.usuario.copiapassword = "contrasena";
+    
+  $scope.Registrar=function(){
+
+      console.log("usuario a crear:");
+      console.log($scope.usuario);
+            
+    }
 
 });
 

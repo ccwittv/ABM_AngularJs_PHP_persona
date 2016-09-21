@@ -26,9 +26,10 @@ Add styles for these classes to give your application a better and more intuitiv
 input.ng-invalid {
     background-color: red;
 }
-/*input.ng-valid {
+input.ng-valid {
     background-color: lightgreen;
-}*/
+}
+
 
 span{
       color: black;
