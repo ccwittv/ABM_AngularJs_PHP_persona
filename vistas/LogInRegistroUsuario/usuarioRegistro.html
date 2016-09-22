@@ -1,97 +1,88 @@
 	     
 	    <div class="container">
 		<div class="page-header">
-			<center> <h1>Login Angular</h1>   </center>     
+			<center> <h3>Login Angular</h3>   </center>     
 		</div>
 
 		<div class="CajaInicio animated bounceInRight">
 			<h1>REGISTRARSE</h1>
-			<form name="FormAlta" novalidate>
+			<form name="FormAlta" id="FormIngreso"  enctype="multipart/form-data" novalidate>
 
-		<p>
-			<input type="text" name="nombre" ng-model="usuario.nombre" placeholder="ingrese nombre" required>
+				<input type="text" name="nombre" ng-model="usuario.nombre" placeholder="ingrese nombre" value="" required>
+				<span ng-show="FormAlta.nombre.$error.required">El nombre es requerido</span>
 
-			<span ng-show="FormAlta.nombre.$error.required">El nombre es requerido</span>
-		</p>
+				<input type="text" name="apellido" ng-model="usuario.apellido" placeholder="ingrese apellido" value="" required>
+				<span ng-show="FormAlta.apellido.$error.required">El apellido es requerido</span></br>
 
-		<p>
-			<input type="text" name="apellido" ng-model="usuario.apellido" placeholder="ingrese apellido" required>
+				<label>
+					<input type="number" name="edad" ng-model="usuario.edad" placeholder="ingrese edad" value="" required>
+					<span ng-show="FormAlta.edad.$error.required">La edad es requerida</span>
+					<span ng-show="FormAlta.edad.$error.number">Solo puede contener numeros</span>
+				</label>
+				</br>	
+				
+				<label>Sexo:</label></br>
+				<input type="radio" name="sexo" ng-model="usuario.sexo" value="Masculino" required><label>Masculino</label> <br>
+				<input type="radio" name="sexo" ng-model="usuario.sexo" value="Femenino" required> <label>Femenino</label><br>
+				<span ng-show="FormAlta.sexo.$error.required">El sexo es requerido</span>
 
-			<span ng-show="FormAlta.apellido.$error.required">El apellido es requerido</span>
-		</p>
+				<label>
+					<input type="number" name="dni" ng-model="usuario.dni" placeholder="ingrese DNI" required>
+					<span ng-show="FormAlta.dni.$error.required">El DNI es requerido</span>
+					<span ng-show="FormAlta.dni.$error.number">Solo puede contener numeros</span>
+				</label>
+				</br>
+	
+				<label>Estado:</label><br>
+				<select name="estado" ng-model="usuario.estado" required>
+			  		<option value="opcion1" selected>Soltero/a</option> 
+			  		<option value="opcion2">Casado/a</option>
+			  		<option value="opcion3">Viudo/a</option>
+				</select>
+				<span ng-show="FormAlta.estado.$error.required">El estado es requerido</span>
+				
+				<label>
+				<input type="date" name="fechaNacimiento" ng-model="usuario.fechaNacimiento" placeholder="ingrese Fecha de Nacimiento" required>
+				<span ng-show="FormAlta.fechaNacimiento.$error.required">La fecha es requerida</span>
+				<span ng-show="FormAlta.fechaNacimiento.$error.date">Debe tener un formato de fecha (yyyy-mm-dd)</span>
+				</label>
 
-		<p>
-			<input type="number" name="edad" ng-model="usuario.edad" placeholder="ingrese edad" required>
+				<input type="email" name="email" ng-model="usuario.email" placeholder="ingrese email" required>
+				<span ng-show="FormAlta.email.$error.required">El email es requerido</span>
+				<span ng-show="FormAlta.email.$error.email">El email es invalido</span>
 
-			<span ng-show="FormAlta.edad.$error.required">La edad es requerida</span>
-			<span ng-show="FormAlta.edad.$error.number">Solo puede contener numeros</span>
-		</p>
+				<label>
+				<input type="password" name="password" ng-model="usuario.password" ng-minlength="7" placeholder="ingrese contrasena" required>
+				<span ng-show="FormAlta.password.$error.required">La contrasena es requerida</span>
+				<span ng-show="FormAlta.password.$error.minlength">La contrasena debe tener como minimo 7 caracteres</span>
+				</label>
+				</br>
 
-		<p>
-			<label>Sexo:</label><br>
-			<input type="radio" name="sexo" ng-model="usuario.sexo" value="Masculino" required><label>Masculino</label> <br>
-			<input type="radio" name="sexo" ng-model="usuario.sexo" value="Femenino" required> <label>Femenino</label><br>
+				<label>
+				<input type="password" name="copiapassword" ng-model="usuario.copiapassword" ng-minlength="7" placeholder="reingrese contrasena" required>
+				<span ng-show="FormAlta.password.$error.required">La contrasena es requerida</span>
+				<span ng-show="FormAlta.password.$error.minlength">La contrasena debe tener como minimo 7 caracteres</span>
+				</label>
+				</br>
 
-			<span ng-show="FormAlta.sexo.$error.required">El sexo es requerido</span>
-		</p>
+				<label>
+				<label>Lenguajes de programacion:</label><br>
+				<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.c" value="C"> C <br>
+				<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.csharp" value="C#"> C# <br>
+				<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.javascript" value="Javascript"> Javascript </br>
+				<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.php" value="PHP"> PHP <br>
+				</label>
 
-		<p>
-			<input type="number" name="dni" ng-model="usuario.dni" placeholder="ingrese DNI" required>
-
-			<span ng-show="FormAlta.dni.$error.required">El DNI es requerido</span>
-			<span ng-show="FormAlta.dni.$error.number">Solo puede contener numeros</span>
-		</p>
-
-		<p>
-			<label>Estado:</label><br>
-			<select name="estado" ng-model="usuario.estado" required>
-			  <option value="opcion1" selected>Soltero/a</option> 
-			  <option value="opcion2">Casado/a</option>
-			  <option value="opcion3">Viudo/a</option>
-			</select>
-
-			<span ng-show="FormAlta.estado.$error.required">El estado es requerido</span>
-		</p>
-
-		<p>
-			<input type="date" name="fechaNacimiento" ng-model="usuario.fechaNacimiento" placeholder="ingrese Fecha de Nacimiento" required>
-
-			<span ng-show="FormAlta.fechaNacimiento.$error.required">La fecha es requerida</span>
-			<span ng-show="FormAlta.fechaNacimiento.$error.date">Debe tener un formato de fecha (yyyy-mm-dd)</span>
-		</p>
-
-		<p>
-			<input type="email" name="email" ng-model="usuario.email" placeholder="ingrese email" required>
-
-			<span ng-show="FormAlta.email.$error.required">El email es requerido</span>
-			<span ng-show="FormAlta.email.$error.email">El email es invalido</span>
-		</p>
-
-		<p>
-			<input type="password" name="password" ng-model="usuario.password" ng-minlength="7" placeholder="ingrese contrasena" required>
-			<span ng-show="FormAlta.password.$error.required">La contrasena es requerida</span>
-			<span ng-show="FormAlta.password.$error.minlength">La contrasena debe tener como minimo 7 caracteres</span>
-		</p>
-
-		<p>
-			<input type="password" name="copiapassword" ng-model="usuario.copiapassword" ng-minlength="7" placeholder="reingrese contrasena" required>
-			<span ng-show="FormAlta.password.$error.required">La contrasena es requerida</span>
-			<span ng-show="FormAlta.password.$error.minlength">La contrasena debe tener como minimo 7 caracteres</span>
-		</p>
-
-		<p>
-			<label>Lenguajes de programacion:</label><br>
-			<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.c" value="C"> C <br>
-			<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.csharp" value="C#"> C# <br>
-			<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.javascript" value="Javascript">Javascript <br>
-			<input type="checkbox" name="lenguaje" ng-model="usuario.lenguaje.php" value="PHP"> PHP <br>
-		</p>
-
-		<p>
-		  <button class="btn btn-info " ng-disabled="FormAlta.$dirty && FormAlta.$invalid && 
-		  FormAlta.password.minlength != 7 && FormAlta.password != FormAlta.copiapassword" ng-click="Registrar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Ingresar</button>
-		</p>
+				<p>
+				  <button class="btn btn-info " ng-disabled="FormAlta.$dirty && FormAlta.$invalid && 
+				  FormAlta.password.minlength != 7 && FormAlta.password != FormAlta.copiapassword" ng-click="Registrar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Ingresar
+				  </button>
+				  <button ng-click="iraLogin()" class="btn btn-info" list-group-item list-group-item-info>
+						<span class="glyphicon glyphicon-log-in">&nbsp;</span> Log In
+				  </button>
+				</p>
 
 		</form>
 			
 		</div>
+	</div>

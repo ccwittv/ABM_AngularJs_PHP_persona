@@ -1,13 +1,16 @@
-//estilos para las validaciones
+/*estilos para las validaciones*/
 
 input.ng-invalid {
     background-color:red;
 }
 input.ng-valid {
-    background-color:yellow;
+    background-color:lightgreen;
 }
 
-
+span{
+      color: black;
+      font-size:100%;
+    }
 
 
 /*
@@ -285,7 +288,7 @@ background: linear-gradient(45deg, #1e5799 0%,#2989d8 16%,#2989d8 16%,#ffffff 36
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 color:black;
 }
-/*
+
 .MiBotonUTNLinea{
   max-width: 150px;
 position: absolute;
@@ -310,7 +313,7 @@ position: absolute;
   background:red;
 
 }
-*/
+
 .MiBotonUTNMenuInicio {
   display:block;
  
@@ -335,7 +338,7 @@ position: absolute;
 
 
 
-/*
+
 .CajaUno h1{
   background:#f50056; 
   padding:20px 0;
@@ -348,18 +351,18 @@ position: absolute;
 .CajaUno a:hover {
   color:#f50056;
 }
-*/
 
-/*
+
+
 .CajaUno a {
   color:#DDDDDD;
 }
-*/
-/*
+
+
 .PiedraPapelTijera
 {
   width: 100px;
   height: 100px;
   padding: 10px;
 
-}*/
+}

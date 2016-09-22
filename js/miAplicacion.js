@@ -10,7 +10,8 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 				controller: "controlInicio"
 			}
 		  )
-		
+
+/* USUARIOS */		
     .state(
       "usuario", {
         url: "/usuario",
@@ -68,6 +69,7 @@ miApp.config(function($stateProvider,$urlRouterProvider){
       }
       )
 
+/* PERSONAS */
 		.state(
 			"persona", {
 				url: "/persona",
@@ -125,6 +127,48 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 			}
 			)
 
+/* JUEGOS */
+     .state(
+      "juego", {
+        url: "/juego",
+        abstract: true,
+        templateUrl: 'vistas/SalaJuegos/abstractaSalaJuegos.html',
+        controller : 'controlSalaJuegos'
+      }
+      )
+
+     .state(
+      "juego.menu", {
+        url: "/menu",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/salajuegosMenu.html',
+            controller: "controlSalaJuegosMenu"
+
+          }
+          
+          
+        }
+
+      }
+      )
+
+     .state(
+      "juego.AdivinaElNumero1", {
+        url: "/AdivinaElNumero1",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/AdivinaElNumero1.html',
+            controller: "controlAdivinaElNumero1"
+
+          }
+          
+          
+        }
+
+      }
+      ) 
+
     //$urlRouterProvider.otherwise("/persona/menu");
     $urlRouterProvider.otherwise("inicio");
 	});	
@@ -154,7 +198,7 @@ miApp.controller('controlUsuarioMenu', function($scope, $state, $http) {
 
 });
 
-miApp.controller('controlUsuarioLogin', function($scope, $timeout, spinnerService, $http) {
+miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinnerService, $http) {
 
     $scope.usuario={};
     $scope.usuario.email = "fede@fede.com";
@@ -180,9 +224,15 @@ miApp.controller('controlUsuarioLogin', function($scope, $timeout, spinnerServic
             $scope.loggedIncorrecto = true;}, 2500);
          }             
     };
+
+    $scope.iraRegistro = function(){
+
+      $state.go("usuario.registro");
+
+    };
   });
 
-miApp.controller('controlUsuarioRegistro', function($scope, $http) {
+miApp.controller('controlUsuarioRegistro', function($scope, $state, $http) {
 
   $scope.usuario={};
   $scope.usuario.nombre = "Juan";
@@ -202,6 +252,12 @@ miApp.controller('controlUsuarioRegistro', function($scope, $http) {
       console.log($scope.usuario);
             
     }
+
+  $scope.iraLogin = function(){
+
+    $state.go("usuario.login");
+
+  }
 
 });
 
@@ -358,3 +414,69 @@ miApp.controller("controlPersonaGrilla", function($scope, $http){
 
 
 });
+
+miApp.controller('controlSalaJuegos', function($scope, $http) {
+  $scope.DatoTest="**Menu Sala de Juegos en la abstracta**";
+});
+
+miApp.controller('controlSalaJuegosMenu', function($scope, $state, $http) {
+
+  $scope.iraAdivinaElNumero1 = function(){
+
+    $state.go("juego.AdivinaElNumero1");
+
+  }
+
+});
+
+miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http){
+  var numeroSecreto=0; 
+  var contadorIntentos;
+  $scope.datos={};
+    $scope.Comenzar=function(){
+    //Genero el número RANDOM entre 1 y 100   
+    numeroSecreto =Math.floor( Math.random()*100)+1;
+    contadorIntentos=0;
+    $scope.datos.intentos=contadorIntentos;
+  
+    //alert(numeroSecreto );
+  
+  }
+
+  $scope.Verificar=function(){
+    if (numeroSecreto==0)
+    {
+        $scope.resultado= "Elija Comenzar";
+        return;
+    }
+
+    numeroIngresado=$scope.datos.numero;
+
+    contadorIntentos++;
+    $scope.datos.intentos=contadorIntentos;
+      //alert(numeroIngresado );
+    if(numeroIngresado==numeroSecreto)
+      {
+         //alert("usted es un ganador!!!, y solo en "+contadorIntentos+" intentos.");
+         $scope.resultado= "usted es un ganador!!!, y solo en "+contadorIntentos+" intentos.";
+      }
+    else if(numeroIngresado<numeroSecreto)
+      {
+        //alert("falta...");
+        $scope.resultado="falta...";
+      }
+    else
+      {
+        //alert("se Pasó...");
+        $scope.resultado="se Pasó...";
+      }
+    
+    }
+
+   $scope.iraJuegos = function(){
+
+    $state.go("juego.menu");
+
+  }  
+
+});//cada vez que se recarga la pagina se recarga el controlador
