@@ -111,13 +111,13 @@ miApp.config(function($stateProvider,$urlRouterProvider){
 			}
 			)
 
-    /*.state(
+    .state(
       "persona.modificacion", {
         url: "/modificacion/{id}?:nombre:apellido:dni:foto",
         views: {
           "contenido":{
             templateUrl: 'vistas/ABMpersona/personaAlta.html',
-            controller: "controlModificacion"
+            controller: "controlPersonaModificacion"
 
           }
           
@@ -125,7 +125,7 @@ miApp.config(function($stateProvider,$urlRouterProvider){
         }
 
       }
-      )*/
+      )
 
 		.state(
 			"persona.grilla", {
@@ -606,8 +606,9 @@ miApp.controller("controlPersonaGrilla", function($scope, $http, $state){
 
 });
 
-/*miApp.controller('controlModificacion', function($scope, $http, $state, $stateParams, FileUploader)//, $routeParams, $location)
+miApp.controller('controlPersonaModificacion', function($scope, $http, $state, $stateParams, FileUploader)//, $routeParams, $location)
 {
+  $scope.verdatos = true;
   $scope.persona={};
   $scope.DatoTest="**Modificar**";
   $scope.uploader=new FileUploader({url:'PHP/nexo.php'});
@@ -624,7 +625,7 @@ miApp.controller("controlPersonaGrilla", function($scope, $http, $state){
     {
       //aca se ejetuca si retorno sin errores       
       console.log(respuesta.data);
-      $state.go("grilla");
+      $state.go("persona.grilla");
     },
     function errorCallback(response)
     {
@@ -642,7 +643,7 @@ miApp.controller("controlPersonaGrilla", function($scope, $http, $state){
     }
     $scope.uploader.uploadAll();
   }
-});*/
+});
 
 miApp.controller('controlSalaJuegos', function($scope, $http) {
   $scope.DatoTest="**Menu Sala de Juegos en la abstracta**";
