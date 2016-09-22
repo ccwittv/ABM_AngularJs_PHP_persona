@@ -237,7 +237,7 @@ select{
 .MiBotonUTN:hover{
   background:#1BA045;
 }
-/*
+
 .MiBotonUTNJuego {
   
   text-transform: capitalize;
@@ -257,7 +257,7 @@ select{
   transition:background .3s;
   -webkit-transition:background .3s;
 }
-*/
+
 .MiBotonUTNMenu {
   display:block;
   text-transform: capitalize;

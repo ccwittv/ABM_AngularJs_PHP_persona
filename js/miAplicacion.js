@@ -169,6 +169,102 @@ miApp.config(function($stateProvider,$urlRouterProvider){
       }
       ) 
 
+     .state(
+      "juego.AdivinaElNumero2", {
+        url: "/AdivinaElNumero2",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/AdivinaElNumero2.html',
+            controller: "controlAdivinaElNumero2"
+
+          }
+          
+          
+        }
+
+      }
+      ) 
+
+     .state(
+      "juego.PiedarPapelTijera1", {
+        url: "/PiedarPapelTijera1",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/PiedarPapelTijera1.html',
+            controller: "controlPiedarPapelTijera1"
+
+          }
+          
+          
+        }
+
+      }
+      )
+
+      .state(
+      "juego.PiedarPapelTijera2", {
+        url: "/PiedarPapelTijera2",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/PiedarPapelTijera2.html',
+            controller: "controlPiedarPapelTijera2"
+
+          }
+          
+          
+        }
+
+      }
+      )  
+
+      .state(
+      "juego.AgilidadAritmetica1", {
+        url: "/AgilidadAritmetica1",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/AgilidadAritmetica1.html',
+            controller: "controlAgilidadAritmetica1"
+
+          }
+          
+          
+        }
+
+      }
+      )
+
+      .state(
+      "juego.AgilidadAritmetica2", {
+        url: "/AgilidadAritmetica2",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/AgilidadAritmetica2.html',
+            controller: "controlAgilidadAritmetica2"
+
+          }
+          
+          
+        }
+
+      }
+      )    
+
+      .state(
+      "juego.ReflejosDaltonicos1", {
+        url: "/ReflejosDaltonicos1",
+        views: {
+          "contenido":{
+            templateUrl: 'vistas/SalaJuegos/ReflejosDaltonicos1.html',
+            controller: "controlReflejosDaltonicos1"
+
+          }
+          
+          
+        }
+
+      }
+      )    
+
     //$urlRouterProvider.otherwise("/persona/menu");
     $urlRouterProvider.otherwise("inicio");
 	});	
@@ -404,9 +500,6 @@ miApp.controller("controlPersonaGrilla", function($scope, $http){
 */
  	}
 
-
-
-
  	$scope.Modificar=function(id){
  		
  		console.log("Modificar"+" "+id);
@@ -426,6 +519,42 @@ miApp.controller('controlSalaJuegosMenu', function($scope, $state, $http) {
     $state.go("juego.AdivinaElNumero1");
 
   }
+
+  $scope.iraAdivinaElNumero2 = function(){
+
+    $state.go("juego.AdivinaElNumero2");
+
+  }
+
+  $scope.iraPiedarPapelTijera1 = function(){
+
+    $state.go("juego.PiedarPapelTijera1");
+
+  }
+
+   $scope.iraPiedarPapelTijera2 = function(){
+
+    $state.go("juego.PiedarPapelTijera2");
+
+  }
+
+   $scope.iraAgilidadAritmetica1 = function(){
+
+    $state.go("juego.AgilidadAritmetica1");
+
+  }
+
+ $scope.iraAgilidadAritmetica2 = function(){
+
+    $state.go("juego.AgilidadAritmetica2");
+
+  } 
+
+  $scope.iraReflejosDaltonicos1 = function(){
+
+    $state.go("juego.ReflejosDaltonicos1");
+
+  } 
 
 });
 
@@ -472,11 +601,438 @@ miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http){
       }
     
     }
+  
 
-   $scope.iraJuegos = function(){
+});//cada vez que se recarga la pagina se recarga el controlador
 
-    $state.go("juego.menu");
+miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http){
+  var numeroSecreto=0; 
+  var contadorIntentos;
+  $scope.datos={};
+    $scope.Comenzar=function(){
+    //Genero el número RANDOM entre 1 y 100   
+    numeroSecreto =Math.floor( Math.random()*100)+1;
+    contadorIntentos=0;
+    $scope.datos.intentos=contadorIntentos;
+  
+    //alert(numeroSecreto );
+  
+  }
 
-  }  
+  $scope.Verificar=function(){
+
+     if (numeroSecreto==0)
+      {
+        $scope.resultado= "Elija Comenzar";
+        return;
+      }
+
+    numeroIngresado=$scope.datos.numero;
+
+    contadorIntentos++;
+    $scope.datos.intentos=contadorIntentos;
+      //alert(numeroIngresado );
+    if(numeroIngresado==numeroSecreto)
+      {
+         //alert("usted es un ganador!!!, y solo en "+contadorIntentos+" intentos.");
+         switch(contadorIntentos)
+        {
+          case 1:
+            $scope.resultado="usted es un psíquico";
+            break;
+          case 2:
+            $scope.resultado="excelente percepción";
+            break;
+          case 3:
+            $scope.resultado="Esto es suerte";
+            break;
+          case 4:
+            $scope.resultado="Excelente técnica";
+            break;
+          case 5:
+            $scope.resultado="usted está en la media";
+            break;
+          default:
+            if(contadorIntentos<10)
+            {
+              $scope.resultado="falta técnica";
+            }
+            else
+            {
+              $scope.resultado="afortunado en el amor!!";
+            }
+            
+            break;
+        }
+      } 
+    else if(numeroIngresado<numeroSecreto)
+      {
+        $scope.resultado="falta...";
+      }
+    else
+      {
+        $scope.resultado="se Pasó...";
+      }
+    
+    }
+
+
+});//cada vez que se recarga la pagina se recarga el controlador
+
+miApp.controller("controlPiedarPapelTijera1", function($scope, $state, $http){
+var eleccionMaquina;
+$scope.comenzar=function()
+{
+  //Genero el número RANDOM entre 1 y 3
+    numeroSecreto =Math.floor( Math.random()*3)+1;
+    //alert(numeroSecreto);
+    switch(numeroSecreto)
+    {
+      case 1:
+        eleccionMaquina="piedra";
+        break;
+      case 2:
+        eleccionMaquina="papel";
+        break;
+      case 3:
+        eleccionMaquina="tijera";
+        break;
+
+    }
+    //alert(eleccionMaquina);
+    return eleccionMaquina;
+    
+}//FIN DE LA FUNCIÓN
+
+$scope.piedra = function()
+{
+  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  eleccionHumano="piedra";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate.";   
+  }
+  else if(eleccionMaquina=="tijera")
+  {
+    $scope.resultado="vos ganastes.";
+  }
+  else
+  {
+    $scope.resultado="ganó la Maquina.";
+  }
+    $scope.comenzar();
+}//FIN DE LA FUNCIÓN
+
+$scope.papel = function()
+{
+  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  eleccionHumano="papel";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate.";
+  }
+  else if(eleccionMaquina=="piedra")
+  {
+    $scope.resultado="vos ganastes.";
+  }
+  else
+  {
+    $scope.resultado="ganó la Maquina.";
+  }
+  $scope.comenzar();
+}//FIN DE LA FUNCIÓN
+
+$scope.tijera = function()
+{
+  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  eleccionHumano="tijera";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate."; 
+  }
+  else if(eleccionMaquina=="papel")
+  {
+    $scope.resultado="vos ganastes.";
+  }
+  else
+  {
+    $scope.resultado="ganó la Maquina.";
+  }
+  $scope.comenzar();
+}//FIN DE LA FUNCIÓN
+
+});//cada vez que se recarga la pagina se recarga el controlador
+
+miApp.controller("controlPiedarPapelTijera2", function($scope, $state, $http){
+var eleccionMaquina;
+var ContadorDeEmpates=0;
+var ContadorDeGanadas=0;
+var ContadorDePerdidas=0;
+$scope.datos={};
+$scope.comenzar=function()
+{
+  //Genero el número RANDOM entre 1 y 3
+    numeroSecreto =Math.floor( Math.random()*3)+1;
+    //alert(numeroSecreto);
+    switch(numeroSecreto)
+    {
+      case 1:
+        eleccionMaquina="piedra";
+        break;
+      case 2:
+        eleccionMaquina="papel";
+        break;
+      case 3:
+        eleccionMaquina="tijera";
+        break;
+
+    }
+    //alert(eleccionMaquina);
+    return eleccionMaquina;
+    
+}//FIN DE LA FUNCIÓN
+
+$scope.piedra = function()
+{
+  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  eleccionHumano="piedra";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate.";
+    ContadorDeEmpates++;      
+  }
+  else if(eleccionMaquina=="tijera")
+  {
+    $scope.resultado="vos ganastes.";
+    ContadorDeGanadas++;
+  }
+  else
+  {
+    $scope.resultado="ganó la Maquina.";
+    ContadorDePerdidas++;
+  }
+  $scope.mostrarResultado();
+}//FIN DE LA FUNCIÓN
+
+$scope.papel = function()
+{
+  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  eleccionHumano="papel";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate.";
+    ContadorDeEmpates++;  
+  }
+  else if(eleccionMaquina=="piedra")
+  {
+    $scope.resultado="vos ganastes.";
+    ContadorDeGanadas++;
+  }
+  else
+  {
+    $scope.resultado="ganó la Maquina.";
+    ContadorDePerdidas++;
+  }
+  $scope.mostrarResultado();
+}//FIN DE LA FUNCIÓN
+
+$scope.tijera = function()
+{
+  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  eleccionHumano="tijera";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate.";
+    ContadorDeEmpates++;    
+  }
+  else if(eleccionMaquina=="papel")
+  {
+    $scope.resultado="vos ganastes.";
+    ContadorDeGanadas++;
+  }
+  else
+  {
+    $scope.resultado="ganó la Maquina.";
+    ContadorDePerdidas++;
+  }
+  $scope.mostrarResultado();
+}//FIN DE LA FUNCIÓN
+
+$scope.mostrarResultado = function()
+{
+
+  $scope.datos.empatadas=ContadorDeEmpates + " partidas empatadas.";
+  $scope.datos.perdidas=ContadorDePerdidas + " partidas perdidas.";
+  $scope.datos.ganadas=ContadorDeGanadas + " partidas ganadas.";
+
+  $scope.comenzar();
+}
+
+});//cada vez que se recarga la pagina se recarga el controlador
+
+miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http){
+
+  var totaloperacion;
+  var operador;
+  $scope.datos={};
+  $scope.comenzar = function()
+  {
+      $scope.datos.randomprimernumero = Math.floor( Math.random()*10)+1;
+      $scope.datos.randomsegundonumero = Math.floor( Math.random()*10)+1;
+    operador = Math.floor( Math.random()*4)+1; 
+    switch(operador)
+    {
+      case 1:       
+        $scope.datos.randomoperador="Suma";
+        totaloperacion = $scope.datos.randomprimernumero + $scope.datos.randomsegundonumero
+        break;
+      case 2:
+        $scope.datos.randomoperador="Resta";
+        totaloperacion = $scope.datos.randomprimernumero - $scope.datos.randomsegundonumero
+        break;
+      case 3:
+        $scope.datos.randomoperador="Multiplicación";
+        totaloperacion = $scope.datos.randomprimernumero * $scope.datos.randomsegundonumero
+        break;
+      case 4:
+        $scope.datos.randomoperador="división";
+        totaloperacion = $scope.datos.randomprimernumero / $scope.datos.randomsegundonumero
+        break;
+    }
+     return totaloperacion;
+  }//FIN DE LA FUNCIÓN
+  
+  $scope.Responder = function()
+  {
+    if ( parseInt($scope.datos.respuesta) == totaloperacion )
+     {
+           $scope.resultado = "Correcto!!";
+     } 
+    else
+     {
+           $scope.resultado = "Incorrecto!!";
+     } 
+       $scope.comenzar();
+  }//FIN DE LA FUNCIÓN
+
+});//cada vez que se recarga la pagina se recarga el controlador
+
+miApp.controller("controlAgilidadAritmetica2", function($scope, $state, $http){
+  var totaloperacion;
+  var operador;
+  var tiempo=0;
+  var finTiempo;
+  $scope.datos={};
+  $scope.comenzar = function()
+  {
+      $scope.datos.randomprimernumero = Math.floor( Math.random()*10)+1;
+      $scope.datos.randomsegundonumero = Math.floor( Math.random()*10)+1;
+    operador = Math.floor( Math.random()*4)+1; 
+    switch(operador)
+    {
+      case 1:       
+        $scope.datos.randomoperador="Suma";
+        totaloperacion = $scope.datos.randomprimernumero + $scope.datos.randomsegundonumero
+        break;
+      case 2:
+        $scope.datos.randomoperador="Resta";
+        totaloperacion = $scope.datos.randomprimernumero - $scope.datos.randomsegundonumero
+        break;
+      case 3:
+        $scope.datos.randomoperador="Multiplicación";
+        totaloperacion = $scope.datos.randomprimernumero * $scope.datos.randomsegundonumero
+        break;
+      case 4:
+        $scope.datos.randomoperador="División";
+        totaloperacion = $scope.datos.randomprimernumero / $scope.datos.randomsegundonumero
+        break;
+    }
+     //tiempo = 5000.
+     finTiempo = setTimeout($scope.temporizador, 5000);  
+     return totaloperacion;
+  }//FIN DE LA FUNCIÓN
+  
+  $scope.Responder = function()
+  {
+    if ( parseInt($scope.datos.respuesta) == totaloperacion )
+     {
+           $scope.resultado = "Correcto!!";
+           clearTimeout(finTiempo);
+     } 
+    else
+     {
+           $scope.resultado = "Incorrecto!!";
+           clearTimeout(finTiempo);
+     } 
+       //$scope.comenzar();
+  }//FIN DE LA FUNCIÓN
+  
+  $scope.temporizador = function()
+  {
+       //tiempo = tiempo / 1000. 
+       //$scope.resultado = "Incorrecto!! (fin del tiempo)";
+       alert("Incorrecto!! (fin del tiempo)"); 
+  }
+
+});//cada vez que se recarga la pagina se recarga el controlador
+
+miApp.controller("controlReflejosDaltonicos1", function($scope, $state, $http){
+
+var ColorSecreto;
+var tiempoInicio;
+$scope.comenzar = function ()
+{
+  
+  //Genero el número RANDOM entre 1 y 4
+   EleccionColorSecreto =Math.floor( Math.random()*6)+1;
+    
+    switch(EleccionColorSecreto)
+    {
+      case 1:
+        
+        ColorSecreto="rojo";
+        break;
+      case 2:
+        ColorSecreto="azul";
+        break;
+      case 3:
+        ColorSecreto="verde";
+        break;
+      case 4:
+        ColorSecreto="amarillo";
+        break;
+      case 5:
+        ColorSecreto="marron";
+        break;
+      case 6:
+        ColorSecreto="celeste";
+        break;
+      
+
+    }
+    
+ $scope.ColorElejido=ColorSecreto;
+
+ tiempoInicio=  new Date();
+ tiempoInicio=tiempoInicio.getTime();
+
+}//FIN DE LA FUNCIÓN
+$scope.Responder = function(colorParametro)
+{
+  
+  if(colorParametro==ColorSecreto)
+    {
+      tiempoFinal= new Date();
+      tiempoFinal=tiempoFinal.getTime();
+      resultado=tiempoFinal-tiempoInicio;
+      $scope.resultado="su tiempo fue: "+resultado;
+    }
+    else
+    {
+      $scope.resultado="incorrecto";
+    }
+
+
+}//FIN DE LA FUNCIÓN
 
 });//cada vez que se recarga la pagina se recarga el controlador

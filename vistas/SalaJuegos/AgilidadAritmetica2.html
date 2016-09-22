@@ -1,0 +1,47 @@
+<div class="container" ng-init="comenzar()">
+		<div class="page-header">
+			<center><h1>Sala de Juegos</h1> </center>     
+		</div>
+		<div class="CajaUno animated bounceInDown">
+			
+			<h4>Agilidad Aritmética v2.0</h4>
+			<input type="text" readonly id="PrimerNumero" ng-model="datos.randomprimernumero">
+			<input type="text" readonly id="Operador"  ng-model="datos.randomoperador">
+			<input type="text" readonly id="SegundoNumero" ng-model="datos.randomsegundonumero" >
+			<form id="FormIngreso">
+				<input type="text"  id="Respuesta" ng-model="datos.respuesta">
+				<center>
+					<img src="././img/interrogacion.jpg"  style="width:75px;height:75px;" >
+				</center>
+				
+			</form>
+			<button  class="MiBotonUTN" ng-click="Responder()" >Aceptar</button>
+			<button  class="MiBotonUTN" ng-click="comenzar()" >Nueva operación</button>
+			<br/>
+			{{resultado}}
+		</div>
+		<div class="CajaUno animated bounceInLeft">
+			
+
+			
+			
+		
+			
+
+
+		</div>
+
+		<!-- <div class="CajaEnunciado animated bounceInLeft">
+			<h2>Enunciado:</h2>
+			
+				<h3>
+						Además de lo anterior, ahora se agregara un temporizador que a los 4(cuatro) segundos dará por terminado el juego y se verificará si el resultado es el correcto.
+
+
+				</h3>
+			
+			
+		</div> -->
+
+		
+		</div>
