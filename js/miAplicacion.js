@@ -1,7 +1,13 @@
-var miApp = angular.module("AngularABM",['ui.router','angularSpinners','angularFileUpload']);
+var miApp = angular.module("AngularABM",['ui.router','angularSpinners','angularFileUpload','satellizer']);
 
-miApp.config(function($stateProvider,$urlRouterProvider){
-	$stateProvider
+miApp.config(function($stateProvider,$urlRouterProvider,$authProvider){
+	
+  $authProvider.loginUrl = 'ABM_AngularJs_PHP_persona/PHP/auth.php';
+  $authProvider.tokenName='MiTokenGeneradoEnPHP';
+  $authProvider.tokenPrefix='AngularABM';
+  $authProvider.authHeader='data';
+
+  $stateProvider
 		.state(
 			"inicio",
 			{
@@ -38,8 +44,8 @@ miApp.config(function($stateProvider,$urlRouterProvider){
       )
 
     .state(
-      "usuario.login", {
-        url: "/login",
+      "usuario.iniciarSesion", {
+        url: "/iniciarSesion",
         views: {
           "contenido":{
             templateUrl: 'vistas/LogInRegistroUsuario/usuarioLogin.html',
@@ -300,9 +306,9 @@ miApp.controller('controlUsuario', function($scope, $http) {
 
 miApp.controller('controlUsuarioMenu', function($scope, $state, $http) {
 
-  $scope.iraLogin = function(){
+  $scope.iraIniciarSesion = function(){
 
-    $state.go("usuario.login");
+    $state.go("usuario.iniciarSesion");
 
   }
 
@@ -315,17 +321,72 @@ miApp.controller('controlUsuarioMenu', function($scope, $state, $http) {
 
 });
 
-miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinnerService, $http) {
+miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinnerService, $http, $auth) {
+
+  /* $scope.usuario={};
+    $scope.usuario.clave= "laclave";
+    $scope.usuario.correo= "elcorreo";
+
+    if($auth.isAuthenticated())
+     {
+       console.info("token",$auth.getPayload());
+     }
+     else
+     {
+       console.info("no token",$auth.getPayload());
+     }
+
+
+    $scope.IniciarSesion=function(){
+
+        $auth.login($scope.usuario)
+          .then(function(response) {
+            console.info('correcto', response);
+          })
+          .catch(function(response) {
+            console.info('no volvio bien', response);
+          });
+
+    }*/
+
+
+   /* $scope.usuario={};
+    $scope.usuario.email = "fede@fede.com";
+    $scope.usuario.password = "federico";*/
 
     $scope.usuario={};
-    $scope.usuario.email = "fede@fede.com";
-    $scope.usuario.password = "federico";
+    $scope.usuario.email= "elcorreo@dominio.com";
+    $scope.usuario.password= "laclave";
 
-    $scope.Login= function () {
+    if($auth.isAuthenticated())
+     {
+       console.info("token",$auth.getPayload());
+     }
+     else
+     {
+       console.info("no token",$auth.getPayload());
+     }
+
+    $scope.IniciarSesion= function () {
       console.log("login a retener:");
-      console.log($scope.usuario);
+      console.log($scope.usuario);            
       spinnerService.show('html5spinner');
-       if  (( $scope.usuario.email == "fede@fede.com" &&
+
+      $auth.login($scope.usuario)
+          .then(function(response) {
+            console.info('correcto', response);
+            $timeout(function () {
+            spinnerService.hide('html5spinner');
+            $scope.loggedIn = true;}, 2500);
+          })
+          .catch(function(response) {
+            console.info('no volvio bien', response);
+            $timeout(function () {
+            spinnerService.hide('html5spinner');
+            $scope.loggedIncorrecto = true;}, 2500);
+          });
+
+      /* if  (( $scope.usuario.email == "fede@fede.com" &&
             $scope.usuario.password == "federico") ||
             ( $scope.usuario.email == "cwitt@cwitt.com" &&
             $scope.usuario.password == "1234567" ))
@@ -339,7 +400,7 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
             $timeout(function () {
             spinnerService.hide('html5spinner');
             $scope.loggedIncorrecto = true;}, 2500);
-         }             
+         }*/             
     };
 
     $scope.iraRegistro = function(){
@@ -370,9 +431,9 @@ miApp.controller('controlUsuarioRegistro', function($scope, $state, $http) {
             
     }
 
-  $scope.iraLogin = function(){
+  $scope.iraIniciarSesion = function(){
 
-    $state.go("usuario.login");
+    $state.go("usuario.iniciarSesion");
 
   }
 
