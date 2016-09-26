@@ -355,17 +355,21 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
     $scope.usuario.password = "federico";*/
 
     $scope.usuario={};
-    $scope.usuario.email= "elcorreo@dominio.com";
-    $scope.usuario.password= "laclave";
+    $scope.usuario.email= "usuario@dominio.com";
+    $scope.usuario.password= "claveadmin";
 
     if($auth.isAuthenticated())
      {
-       console.info("token",$auth.getPayload());
+       console.info('token',$auth.getPayload());
      }
      else
      {
-       console.info("no token",$auth.getPayload());
+       console.info('no token',$auth.getPayload());
      }
+     console.info('Esta autenticado? ',$auth.isAuthenticated()); 
+     console.info($auth.getPayload());
+     console.info('El token es: ',$auth.getToken()); 
+
 
     $scope.IniciarSesion= function () {
       console.log("login a retener:");
@@ -375,17 +379,27 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
       $auth.login($scope.usuario)
           .then(function(response) {
             console.info('correcto', response);
-            $timeout(function () {
-            spinnerService.hide('html5spinner');
-            $scope.loggedIn = true;}, 2500);
+            
+            if ($auth.isAuthenticated()) {                   
+                  $timeout(function () {
+                  spinnerService.hide('html5spinner');
+                  $scope.loggedIn = true;}, 2500);   
+            }     
+            else {
+                 $timeout(function () {
+                 spinnerService.hide('html5spinner');
+                 $scope.loggedIncorrecto = true;}, 2500);
+            }
+            console.info('Esta autenticado? ',$auth.isAuthenticated()); 
+            console.info($auth.getPayload());
+            console.info('El token es: ',$auth.getToken());  
           })
           .catch(function(response) {
             console.info('no volvio bien', response);
-            $timeout(function () {
-            spinnerService.hide('html5spinner');
-            $scope.loggedIncorrecto = true;}, 2500);
+            console.info('Esta autenticado? ',$auth.isAuthenticated()); 
+            console.info($auth.getPayload());
+            console.info('El token es: ',$auth.getToken());  
           });
-
       /* if  (( $scope.usuario.email == "fede@fede.com" &&
             $scope.usuario.password == "federico") ||
             ( $scope.usuario.email == "cwitt@cwitt.com" &&

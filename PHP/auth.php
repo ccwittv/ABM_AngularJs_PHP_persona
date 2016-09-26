@@ -20,14 +20,14 @@ use \Firebase\JWT\JWT;
 
 
 $DatosDelModeloPorPost=file_get_contents('php://input');
-echo json_encode($DatosDelModeloPorPost);
+//echo json_encode($DatosDelModeloPorPost);
 $user=json_decode($DatosDelModeloPorPost);
-echo json_encode($user);
+//echo json_encode($user);
 if($user->email == 'usuario@dominio.com' && $user->password=='claveadmin')
 {
 	$key="1234";
 	$token["iat"]=time();
-	$token["exp"]= time()+20;
+	$token["exp"]= time()+2000;
 
 	$token["username"]="usuario";
 	$token["tipoUsuario"]="admin";
