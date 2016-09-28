@@ -918,7 +918,7 @@ $scope.comenzar=function()
 
 $scope.piedra = function()
 {
-  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
   eleccionHumano="piedra";
   if(eleccionHumano==eleccionMaquina)
   {
@@ -930,14 +930,14 @@ $scope.piedra = function()
   }
   else
   {
-    $scope.resultado="ganó la Maquina.";
+    $scope.resultado="ganó la Máquina.";
   }
     $scope.comenzar();
 }//FIN DE LA FUNCIÓN
 
 $scope.papel = function()
 {
-  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
   eleccionHumano="papel";
   if(eleccionHumano==eleccionMaquina)
   {
@@ -949,14 +949,14 @@ $scope.papel = function()
   }
   else
   {
-    $scope.resultado="ganó la Maquina.";
+    $scope.resultado="ganó la Máquina.";
   }
   $scope.comenzar();
 }//FIN DE LA FUNCIÓN
 
 $scope.tijera = function()
 {
-  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
   eleccionHumano="tijera";
   if(eleccionHumano==eleccionMaquina)
   {
@@ -968,7 +968,7 @@ $scope.tijera = function()
   }
   else
   {
-    $scope.resultado="ganó la Maquina.";
+    $scope.resultado="ganó la Máquina.";
   }
   $scope.comenzar();
 }//FIN DE LA FUNCIÓN
@@ -1006,7 +1006,7 @@ $scope.comenzar=function()
 
 $scope.piedra = function()
 {
-  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
   eleccionHumano="piedra";
   if(eleccionHumano==eleccionMaquina)
   {
@@ -1020,7 +1020,7 @@ $scope.piedra = function()
   }
   else
   {
-    $scope.resultado="ganó la Maquina.";
+    $scope.resultado="ganó la máquina.";
     ContadorDePerdidas++;
   }
   $scope.mostrarResultado();
@@ -1028,7 +1028,7 @@ $scope.piedra = function()
 
 $scope.papel = function()
 {
-  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
   eleccionHumano="papel";
   if(eleccionHumano==eleccionMaquina)
   {
@@ -1042,7 +1042,7 @@ $scope.papel = function()
   }
   else
   {
-    $scope.resultado="ganó la Maquina.";
+    $scope.resultado="ganó la máquina.";
     ContadorDePerdidas++;
   }
   $scope.mostrarResultado();
@@ -1050,7 +1050,7 @@ $scope.papel = function()
 
 $scope.tijera = function()
 {
-  $scope.seleccionMaquina="la maquina selecciono: "+eleccionMaquina;
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
   eleccionHumano="tijera";
   if(eleccionHumano==eleccionMaquina)
   {
@@ -1064,7 +1064,7 @@ $scope.tijera = function()
   }
   else
   {
-    $scope.resultado="ganó la Maquina.";
+    $scope.resultado="ganó la máquina.";
     ContadorDePerdidas++;
   }
   $scope.mostrarResultado();
@@ -1107,7 +1107,7 @@ miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http){
         totaloperacion = $scope.datos.randomprimernumero * $scope.datos.randomsegundonumero
         break;
       case 4:
-        $scope.datos.randomoperador="división";
+        $scope.datos.randomoperador="División";
         totaloperacion = $scope.datos.randomprimernumero / $scope.datos.randomsegundonumero
         break;
     }
