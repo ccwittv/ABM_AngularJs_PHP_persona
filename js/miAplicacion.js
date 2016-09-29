@@ -7,6 +7,14 @@ miApp.config(function($stateProvider,$urlRouterProvider,$authProvider){
   $authProvider.tokenPrefix='AngularABM';
   $authProvider.authHeader='data';
 
+   $authProvider.oauth2({
+      name: 'ABM_AngularJs_PHP_persona',
+      url: 'http://localhost',
+      clientId: '6f75fe7eef2e44b657dd',
+      redirectUri: 'http://localhost/ABM_AngularJs_PHP_persona/index.html#/usuario/iniciarSesion',
+      authorizationEndpoint:  'http://localhost/ABM_AngularJs_PHP_persona/index.html#/usuario/iniciarSesion',
+    });
+
   $stateProvider
 		.state(
 			"inicio",
@@ -323,37 +331,6 @@ miApp.controller('controlUsuarioMenu', function($scope, $state, $http) {
 
 miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinnerService, $http, $auth) {
 
-  /* $scope.usuario={};
-    $scope.usuario.clave= "laclave";
-    $scope.usuario.correo= "elcorreo";
-
-    if($auth.isAuthenticated())
-     {
-       console.info("token",$auth.getPayload());
-     }
-     else
-     {
-       console.info("no token",$auth.getPayload());
-     }
-
-
-    $scope.IniciarSesion=function(){
-
-        $auth.login($scope.usuario)
-          .then(function(response) {
-            console.info('correcto', response);
-          })
-          .catch(function(response) {
-            console.info('no volvio bien', response);
-          });
-
-    }*/
-
-
-   /* $scope.usuario={};
-    $scope.usuario.email = "fede@fede.com";
-    $scope.usuario.password = "federico";*/
-
     $scope.usuario={};
     $scope.usuario.email= "usuario@dominio.com";
     $scope.usuario.password= "claveadmin";
@@ -367,7 +344,7 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
        console.info('no token',$auth.getPayload());
      }
      console.info('Esta autenticado? ',$auth.isAuthenticated()); 
-     console.info($auth.getPayload());
+     console.info('Payload: ',$auth.getPayload());
      console.info('El token es: ',$auth.getToken()); 
 
 
@@ -375,11 +352,30 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
       console.log("login a retener:");
       console.log($scope.usuario);            
       spinnerService.show('html5spinner');
+      
+      /*$auth.authenticate('ABM_AngularJs_PHP_persona')
+        .then(function(response) {
+          console.info('correcto', response);
+          // Signed in with ABM_AngularJs_PHP_persona.
+          if ($auth.isAuthenticated()) {                   
+                  $timeout(function () {
+                  spinnerService.hide('html5spinner');
+                  $scope.loggedIn = true;}, 2500);   
+            }     
+            else {
+                 $timeout(function () {
+                 spinnerService.hide('html5spinner');
+                 $scope.loggedIncorrecto = true;}, 2500);
+            }
+        })
+        .catch(function(response) {
+          // Something went wrong.
+          console.info('no volviio bien', response);
+        });*/
 
       $auth.login($scope.usuario)
           .then(function(response) {
             console.info('correcto', response);
-            
             if ($auth.isAuthenticated()) {                   
                   $timeout(function () {
                   spinnerService.hide('html5spinner');
@@ -390,31 +386,13 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
                  spinnerService.hide('html5spinner');
                  $scope.loggedIncorrecto = true;}, 2500);
             }
-            console.info('Esta autenticado? ',$auth.isAuthenticated()); 
-            console.info($auth.getPayload());
-            console.info('El token es: ',$auth.getToken());  
+            
           })
           .catch(function(response) {
             console.info('no volvio bien', response);
-            console.info('Esta autenticado? ',$auth.isAuthenticated()); 
-            console.info($auth.getPayload());
-            console.info('El token es: ',$auth.getToken());  
+           
           });
-      /* if  (( $scope.usuario.email == "fede@fede.com" &&
-            $scope.usuario.password == "federico") ||
-            ( $scope.usuario.email == "cwitt@cwitt.com" &&
-            $scope.usuario.password == "1234567" ))
-         {
-            $timeout(function () {
-            spinnerService.hide('html5spinner');
-            $scope.loggedIn = true;}, 2500);
-         }
-        else
-         {
-            $timeout(function () {
-            spinnerService.hide('html5spinner');
-            $scope.loggedIncorrecto = true;}, 2500);
-         }*/             
+           
     };
 
     $scope.iraRegistro = function(){
