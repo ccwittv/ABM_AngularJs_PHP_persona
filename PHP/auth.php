@@ -27,7 +27,7 @@ if($user->email == 'usuario@dominio.com' && $user->password=='claveadmin')
 {
 	$key="1234";
 	$token["iat"]=time();
-	$token["exp"]= time()+2000;
+	$token["exp"]= time()+1800; //el token caduca en media hora
 
 	$token["username"]="usuario";
 	$token["tipoUsuario"]="admin";

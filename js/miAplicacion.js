@@ -420,7 +420,16 @@ miApp.controller('controlUsuarioRegistro', function($scope, $state, $http) {
 
       console.log("usuario a crear:");
       console.log($scope.usuario);
-            
+      $http.post('PHP/nexo_usuario.php', { datos: {accion :"insertar",usuario:$scope.usurio}})
+        .then(function(respuesta) {       
+             //aca se ejecuta si retorno sin errores        
+             console.info("Correcto: ",respuesta.data);
+
+        },function errorCallback(response) {        
+            //aca se ejecuta cuando hay errores
+            console.info("Incorrecto: ",response);           
+        });
+                
     }
 
   $scope.iraIniciarSesion = function(){
