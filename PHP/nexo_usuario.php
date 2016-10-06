@@ -13,6 +13,21 @@
 				{
 					case "insertar";
 					 {
+					 	switch ($respuesta->datos->usuario->estado) {
+					 		case 'opcion1':
+					 			$respuesta->datos->usuario->estado = 'Soltero/a';
+					 			break;
+					 		case 'opcion2':
+					 			$respuesta->datos->usuario->estado = 'Casado/a';
+					 			break;
+					 		case 'opcion3':
+					 			$respuesta->datos->usuario->estado = 'Viudo/a';
+					 			break;	
+					 		default:
+					 			# code...
+					 			break;
+					 	}
+					 	Usuario::InsertarUsuario($respuesta->datos->usuario);
 					 	break;
 					 }
 				}

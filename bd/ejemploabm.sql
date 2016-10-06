@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2016 a las 22:39:05
--- Versión del servidor: 5.6.24
--- Versión de PHP: 5.6.8
+-- Tiempo de generación: 06-10-2016 a las 22:03:16
+-- Versión del servidor: 5.6.21
+-- Versión de PHP: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -59,7 +59,7 @@ DELIMITER ;
 --
 
 CREATE TABLE IF NOT EXISTS `persona` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `apellido` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `dni` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
@@ -87,17 +87,25 @@ INSERT INTO `persona` (`id`, `nombre`, `apellido`, `dni`, `foto`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `apellido` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `sexo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `dni` int(15) NOT NULL,
+  `dni` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `estado_civil` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha_nac` date NOT NULL,
-  `mail` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `correo` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `password` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `lenguaje_prog` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `lenguaje_prog` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `sexo`, `dni`, `estado_civil`, `fecha_nac`, `correo`, `password`, `lenguaje_prog`) VALUES
+(4, 'Juan', 'Gonzalez', 'Masculino', '23444444', 'Soltero/a', '1999-03-25', 'juan@juan.com', '1234567', 'un lenguaje cualquiera'),
+(5, 'Jorge', 'Caverna', 'Masculino', '27345678', 'Casado/a', '1966-06-07', 'usuario@dominio.com', 'claveadmin', 'un lenguaje cualquiera');
 
 --
 -- Índices para tablas volcadas
@@ -107,13 +115,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -123,12 +131,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,4 +1,5 @@
 <?php
+include "clases/Usuarios.php";
 include_once '../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 
@@ -23,7 +24,10 @@ $DatosDelModeloPorPost=file_get_contents('php://input');
 //echo json_encode($DatosDelModeloPorPost);
 $user=json_decode($DatosDelModeloPorPost);
 //echo json_encode($user);
-if($user->email == 'usuario@dominio.com' && $user->password=='claveadmin')
+$usuarioBuscado=Usuario::TraerUnUsuario($user->email);
+//echo json_encode($usuarioBuscado);
+if($usuarioBuscado->password == $user->password)
+//if($user->email == 'usuario@dominio.com' && $user->password=='claveadmin')
 {
 	$key="1234";
 	$token["iat"]=time();

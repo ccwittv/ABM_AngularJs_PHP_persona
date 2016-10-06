@@ -379,7 +379,8 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
             if ($auth.isAuthenticated()) {                   
                   $timeout(function () {
                   spinnerService.hide('html5spinner');
-                  $scope.loggedIn = true;}, 2500);   
+                  $scope.loggedIn = true;}, 2500);  
+                  $state.go("inicio");             
             }     
             else {
                  $timeout(function () {
@@ -420,11 +421,11 @@ miApp.controller('controlUsuarioRegistro', function($scope, $state, $http) {
 
       console.log("usuario a crear:");
       console.log($scope.usuario);
-      $http.post('PHP/nexo_usuario.php', { datos: {accion :"insertar",usuario:$scope.usurio}})
+      $http.post('PHP/nexo_usuario.php', { datos: {accion :"insertar",usuario:$scope.usuario}})
         .then(function(respuesta) {       
              //aca se ejecuta si retorno sin errores        
              console.info("Correcto: ",respuesta.data);
-
+             $state.go("usuario.iniciarSesion");
         },function errorCallback(response) {        
             //aca se ejecuta cuando hay errores
             console.info("Incorrecto: ",response);           
@@ -445,10 +446,21 @@ miApp.controller('controlPersona', function($scope, $http) {
   $scope.OtroDato="Inicio y presentacion de la WEB"
 });
 
-miApp.controller("controlPersonaMenu", function($scope, $state, $http){
+miApp.controller("controlPersonaMenu", function($scope, $state, $http, $auth){
 
-    $scope.DatoTest="**Lopez**";//el scope significa que se puede ver desde el js y html
-    $scope.OtroDato="**Witt**";
+  if( ($auth.isAuthenticated()) )
+     {
+        $scope.DatoTest="**Lopez**";//el scope significa que se puede ver desde el js y html
+        $scope.OtroDato="**Witt**";
+     } 
+    else
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+ 
+    //$scope.DatoTest="**Lopez**";//el scope significa que se puede ver desde el js y html
+    //$scope.OtroDato="**Witt**";
+  
 
 	$scope.iraAlta = function(){
 
@@ -711,7 +723,12 @@ miApp.controller('controlSalaJuegos', function($scope, $http) {
   $scope.DatoTest="**Menu Sala de Juegos en la abstracta**";
 });
 
-miApp.controller('controlSalaJuegosMenu', function($scope, $state, $http) {
+miApp.controller('controlSalaJuegosMenu', function($scope, $state, $http, $auth) {
+
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
 
   $scope.iraAdivinaElNumero1 = function(){
 
