@@ -18,7 +18,7 @@ if(isset($_GET['accion']))
 		//$respuesta['listado']=Persona::TraerPersonasTest();
 		$respuesta['listado']=Persona::TraerTodasLasPersonas();
 		//var_dump(Persona::TraerTodasLasPersonas());
-		$arrayJson = json_encode($respuesta);
+		$arrayJson = json_encode($respuesta); //Retorna la representación JSON del valor dado
 		echo  $arrayJson;
 	}
 
@@ -64,7 +64,7 @@ else{
      		console.log( response);     			
  	  });*/
 	$DatosPorPost = file_get_contents("php://input");
-	$respuesta = json_decode($DatosPorPost);
+	$respuesta = json_decode($DatosPorPost);// decodifica un string de JSON
 	//var_dump($respuesta);
 	switch($respuesta->datos->accion)
 	{

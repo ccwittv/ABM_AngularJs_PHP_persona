@@ -482,7 +482,9 @@ miApp.controller("controlPersonaAlta", function($scope, $state, $http, FileUploa
 
   //inicio las variables
   $scope.verdatos = true;
-  $scope.uploader=new FileUploader({url:'PHP/nexo.php'});
+  $scope.uploader=new FileUploader({url:'PHP/nexo_fotos.php'});
+  //$scope.uploader=new FileUploader({url:'PHP/nexo.php'});
+ //$scope.uploader=new FileUploader({url:'ws1/index.php'});
   $scope.persona={};
   $scope.persona.nombre= "natalia" ;
   $scope.persona.dni= "12312312" ;
@@ -492,8 +494,10 @@ miApp.controller("controlPersonaAlta", function($scope, $state, $http, FileUploa
   //$scope.persona.foto="fotos/pordefecto.png";
   $scope.uploader.onSuccessItem=function(item, response, status, headers)
   {
-  $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
-    .then(function(respuesta) {       
+  //$http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
+  $http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify($scope.persona))
+  //$http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + "4")
+    .then(function(respuesta) {        
        //aca se ejetuca si retorno sin errores        
      console.log(respuesta.data);
      $state.go("persona.grilla");
@@ -559,10 +563,12 @@ miApp.controller("controlPersonaAlta", function($scope, $state, $http, FileUploa
 miApp.controller("controlPersonaGrilla", function($scope, $http, $state){  
   $scope.DatoTest="**grilla**";
   console.log("Estoy en la grilla");
-  $http.get('PHP/nexo.php', { params: {accion :"traer"}})
+  //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
+  $http.get('http://localhost/ABM_AngularJs_PHP_persona/ws1/personas')
   .then(function(respuesta) {       
 
          $scope.ListadoPersonas = respuesta.data.listado;
+         console.info("Respuesta arrayJson: ",respuesta);
          console.log(respuesta.data);
 
     },function errorCallback(response) {
