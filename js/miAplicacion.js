@@ -565,11 +565,10 @@ miApp.controller("controlPersonaGrilla", function($scope, $http, $state){
   console.log("Estoy en la grilla");
   //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
   $http.get('http://localhost/ABM_AngularJs_PHP_persona/ws1/personas')
-  .then(function(respuesta) {       
-
-         $scope.ListadoPersonas = respuesta.data.listado;
-         console.info("Respuesta arrayJson: ",respuesta);
-         console.log(respuesta.data);
+  .then(function(respuesta) {        
+             $scope.ListadoPersonas = respuesta.data.listado;
+             console.info("Respuesta arrayJson: ",respuesta);
+             console.log(respuesta.data);
 
     },function errorCallback(response) {
          $scope.ListadoPersonas= [];
@@ -590,6 +589,7 @@ miApp.controller("controlPersonaGrilla", function($scope, $http, $state){
 
     }) */ 
     });
+
   //Esta parte es la llamada a nuestra base mysql local para consumir datos.
  	/*$http.get('PHP/nexo.php', { params: {accion :"traer"}})
  	.then(function(respuesta) {     	
@@ -627,11 +627,13 @@ miApp.controller("controlPersonaGrilla", function($scope, $http, $state){
    $scope.Borrar=function(persona){
     console.log("borrar"+persona);
 
-    $http.post("PHP/nexo.php",{datos:{accion :"borrar",persona:persona}},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+    //$http.post("PHP/nexo.php",{datos:{accion :"borrar",persona:persona}},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+     $http.delete('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify(persona))
      .then(function(respuesta) {       
              //aca se ejetuca si retorno sin errores        
              console.log(respuesta.data);
-         $http.get('PHP/nexo.php', { params: {accion :"traer"}})
+         //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
+        $http.get('http://localhost/ABM_AngularJs_PHP_persona/ws1/personas')
         .then(function(respuesta) {       
 
            $scope.ListadoPersonas = respuesta.data.listado;
@@ -691,7 +693,8 @@ miApp.controller('controlPersonaModificacion', function($scope, $http, $state, $
   $scope.verdatos = true;
   $scope.persona={};
   $scope.DatoTest="**Modificar**";
-  $scope.uploader=new FileUploader({url:'PHP/nexo.php'});
+  //$scope.uploader=new FileUploader({url:'PHP/nexo.php'});
+  $scope.uploader=new FileUploader({url:'PHP/nexo_fotos.php'});
   console.log($stateParams);//$scope.persona=$stateParams;
   $scope.persona.id=$stateParams.id;
   $scope.persona.nombre=$stateParams.nombre;
@@ -700,10 +703,11 @@ miApp.controller('controlPersonaModificacion', function($scope, $http, $state, $
   $scope.persona.foto=$stateParams.foto;
   $scope.uploader.onSuccessItem=function(item, response, status, headers)
   {
-    $http.post('PHP/nexo.php', { datos: {accion :"modificar",persona:$scope.persona}})
+    //$http.post('PHP/nexo.php', { datos: {accion :"modificar",persona:$scope.persona}})
+    $http.put('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify($scope.persona))
     .then(function(respuesta) 
     {
-      //aca se ejetuca si retorno sin errores       
+      //aca se ejecuta si retorno sin errores       
       console.log(respuesta.data);
       $state.go("persona.grilla");
     },
@@ -720,8 +724,24 @@ miApp.controller('controlPersonaModificacion', function($scope, $http, $state, $
     {
       var nombreFoto = $scope.uploader.queue[0]._file.name;
       $scope.persona.foto=nombreFoto;
+      $scope.uploader.uploadAll();
     }
-    $scope.uploader.uploadAll();
+    else
+    {
+       $http.put('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify($scope.persona))
+        .then(function(respuesta) 
+        {
+          //aca se ejecuta si retorno sin errores       
+          console.log(respuesta.data);
+          $state.go("persona.grilla");
+        },
+        function errorCallback(response)
+        {
+          //aca se ejecuta cuando hay errores
+          console.log( response);           
+        });
+        //console.info("Ya guardé el archivo.", item, response, status, headers);
+    }
   }
 });
 

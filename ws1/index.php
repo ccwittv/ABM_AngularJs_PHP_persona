@@ -1,14 +1,6 @@
 <?php
 include "../PHP/clases/Personas.php";
 
-/*if ( !empty( $_FILES ) ) 
-{
-    $temporal = $_FILES[ 'file' ][ 'tmp_name' ];
-    $ruta = "..". DIRECTORY_SEPARATOR . 'fotos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
-    move_uploaded_file( $temporal, $ruta );
-    echo "correcto";
-}*/
-
 /**
  * Step 1: Require the Slim Framework using Composer's autoloader
  *
@@ -45,10 +37,12 @@ $app = new Slim\App();
 *
 *  GET: Para consultar y leer recursos */
 
+//******************************************
+// PARA PRUEBAS DEL GET
+//******************************************
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
     $response->getBody()->write("Hello, $name");
-
     var_dump($response);
     echo $response;
     //return $response;
@@ -56,30 +50,29 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
    //echo $request;
 });
 
-
-$app->delete('/persona/{id}', function ($request, $response, $args) {
-    $response->write("borrar !", $args->id);
-    var_dump($args);
-    return $response;
-});
-
 $app->get('/', function ($request, $response, $args) {
     $response->write("Welcome to Slim!");
     return $response;
 });
 
+//*************************************  
+// PARA PERSONAS
+//*************************************
+
+//GET: para consultar y leer recursos
 $app->get('/personas[/]', function ($request, $response, $args) {
     //$response->write("Lista de usuarios");
     //return $response;
     
-    $response= array();    
-    $response['listado']=Persona::TraerTodasLasPersonas();
-    //var_dump(Persona::TraerTodasLasPersonas());
-    $arrayJson = json_encode($response);     
+    $respuesta= array();    
+    $respuesta['listado']=Persona::TraerTodasLasPersonas();
+    //var_dump($respuesta);
+    $arrayJson = json_encode($respuesta);     
     echo  $arrayJson;
     
 });
 
+//GET: para consultar y leer un solo recursos
 $app->get('/persona[/{id}[/{name}]]', function ($request, $response, $args) {
     $response->write("Datos persona ");
     var_dump($args);
@@ -90,6 +83,7 @@ $app->get('/persona[/{id}[/{name}]]', function ($request, $response, $args) {
     echo json_encode(Persona::TraerUnaPersona($args['id']));
 
 });
+
 /* POST: Para crear recursos */
 $app->post('/persona/{unaPersona}', function ($request, $response, $args) {
     /*$response->write("Welcome to Slim!");
@@ -109,6 +103,64 @@ $app->post('/persona/{unaPersona}', function ($request, $response, $args) {
     var_dump($respuesta);
     Persona::InsertarPersona($respuesta);    
 
+});
+
+// /* DELETE: Para eliminar recursos */
+$app->delete('/persona/{unaPersona}', function ($request, $response, $args) {
+    /*$response->write("borrar !", $args->id);
+    var_dump($args);
+    return $response;*/
+     $respuesta = json_decode($args['unaPersona']);// decodifica un string de JSON
+    if($respuesta->foto!="pordefecto.png")
+            {
+                unlink("../fotos/".$respuesta->foto);
+            }
+    Persona::BorrarPersona($respuesta->id);
+});
+
+// /* PUT: Para editar recursos */
+$app->put('/persona/{unaPersona}', function ($request, $response, $args) {
+    // $response->write("Welcome to Slim!");
+    // var_dump($args);    
+    // return $response;
+     $respuesta = json_decode($args['unaPersona']);// decodifica un string de JSON
+    //var_dump($respuesta);
+    var_dump(substr($respuesta->foto,0,-4)); 
+    //Si el dni es distinto al número que está como nombre de la foto es que pudo subirse una nueva foto
+    if ($respuesta->dni != substr($respuesta->foto,0,-4)) 
+     {
+        if($respuesta->foto!="pordefecto.png")
+            {
+                $rutaVieja="../fotos/".$respuesta->foto;
+                $rutaNueva=$respuesta->dni.".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
+                copy($rutaVieja, "../fotos/".$rutaNueva);
+                unlink($rutaVieja);
+                $respuesta->foto=$rutaNueva;
+            }
+      }      
+    Persona::ModificarPersona($respuesta);
+});
+
+//*************************************  
+// PARA USUARIOS
+//*************************************
+//GET: para consultar y leer recursos
+$app->get('/usuarios[/]', function ($request, $response, $args) {
+    $response->write("Lista de usuarios");
+    return $response;
+});
+
+//GET: para consultar y leer un solo recurso
+$app->get('/usuario[/{id}[/{name}]]', function ($request, $response, $args) {
+    $response->write("Datos usuario ");
+    var_dump($args);
+    return $response;
+});
+/* POST: Para crear recursos */
+$app->post('/usuario/{id}', function ($request, $response, $args) {
+    $response->write("Welcome to Slim!");
+    var_dump($args);
+    return $response;
 });
 
 // /* PUT: Para editar recursos */
