@@ -863,7 +863,7 @@ miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http, $aut
   var numeroSecreto=0; 
   var contadorIntentos;
   $scope.datos={};
-    $scope.Comenzar=function(){
+  $scope.Comenzar=function(){
     //Genero el número RANDOM entre 1 y 100   
     numeroSecreto =Math.floor( Math.random()*100)+1;
     contadorIntentos=0;
@@ -1306,7 +1306,8 @@ miApp.controller("controlAgilidadAritmetica2", function($scope, $state, $http, $
   {
        //tiempo = tiempo / 1000. 
        //$scope.resultado = "Incorrecto!! (fin del tiempo)";
-       alert("Incorrecto!! (fin del tiempo)"); 
+       alert("Incorrecto!! (fin del tiempo)");       
+       //clearTimeout(finTiempo);
   }
 
 });//cada vez que se recarga la pagina se recarga el controlador
