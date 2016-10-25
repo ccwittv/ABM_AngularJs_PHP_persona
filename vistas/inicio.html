@@ -15,13 +15,19 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a ui-sref="usuario.menu()">LogIn & Registración</a>
+                        <a ui-sref="usuario.menu()" ng-if="!autenticado">LogIn & Registración</a>
                     </li>
                     <li>
                         <a ui-sref="persona.menu()">Menú ABM Persona</a>
                     </li>   
                     <li>
                         <a ui-sref="juego.menu()">Sala de Juegos</a>
+                    </li>
+                    <li>
+                      <a ui-sref="usuario.salir()" ng-if="autenticado">
+                       <span class="glyphicon glyphicon-log-out"></span>
+                       Salir
+                      </a>
                     </li>                      
                 </ul>
             </div>
@@ -73,8 +79,8 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading" style='color: black;'>ABM AngularJS Persona</h2>
-                    <p class="lead"><a target="_blank" ui-sref="persona.alta()">Alta</a> </br>
-                    <a target="_blank" ui-sref="persona.grilla()">Grilla</a></p>
+                    <p class="lead"><a ui-sref="persona.alta()">Alta</a> </br>
+                    <a ui-sref="persona.grilla()">Grilla</a></p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/Grilla.png" alt="">
@@ -96,7 +102,7 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Sala de juegos</h2>
-                    <p class="lead"><a target="_blank" href="http://www.psdcovers.com/">Jugar</a></p>
+                    <p class="lead"><a ui-sref="juego.menu()">Jugar</a></p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <img class="img-responsive" src="img/SalaJuegos.png" alt="">

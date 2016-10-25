@@ -83,6 +83,23 @@ miApp.config(function($stateProvider,$urlRouterProvider,$authProvider){
       }
       )
 
+    .state(
+      "usuario.salir", {
+        url: "/salir",
+        views: {
+          "contenido":{
+            //templateUrl: 'vistas/LogInRegistroUsuario/usuarioRegistro.html',
+            controller: "controlUsuarioSalir"
+
+          }
+          
+          
+        }
+
+      }
+      )
+    
+
 /* PERSONAS */
 		.state(
 			"persona", {
@@ -304,8 +321,16 @@ miApp.config(function($stateProvider,$urlRouterProvider,$authProvider){
     $urlRouterProvider.otherwise("inicio");
 	});	
 
-miApp.controller("controlInicio", function($scope, $http){
-
+miApp.controller("controlInicio", function($scope, $http, $auth){
+//Esto me permito hacer aparecer o desaparecer el link o boton de salir (logout)  
+  if($auth.isAuthenticated())
+     {
+        $scope.autenticado = true;
+     }
+  else
+     {
+        $scope.autenticado = false;
+     }     
 });
 
 miApp.controller('controlUsuario', function($scope, $http) {
@@ -379,7 +404,7 @@ miApp.controller('controlUsuarioLogin', function($scope, $state, $timeout, spinn
             if ($auth.isAuthenticated()) {                   
                   $timeout(function () {
                   spinnerService.hide('html5spinner');
-                  $scope.loggedIn = true;}, 2500);  
+                  $scope.loggedIn = true;}, 2500);                    
                   $state.go("inicio");             
             }     
             else {
@@ -441,6 +466,11 @@ miApp.controller('controlUsuarioRegistro', function($scope, $state, $http) {
 
 });
 
+miApp.controller('controlUsuarioSalir', function($scope, $state, $http, $auth) {
+   $auth.logout();   
+   $state.go("inicio");
+ });  // FIN CONTROLLER
+
 miApp.controller('controlPersona', function($scope, $http) {
   $scope.DatoTest="**Menu Persona en la abstracta**";
   $scope.OtroDato="Inicio y presentacion de la WEB"
@@ -448,6 +478,7 @@ miApp.controller('controlPersona', function($scope, $http) {
 
 miApp.controller("controlPersonaMenu", function($scope, $state, $http, $auth){
 
+//Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( ($auth.isAuthenticated()) )
      {
         $scope.DatoTest="**Lopez**";//el scope significa que se puede ver desde el js y html
@@ -476,7 +507,13 @@ miApp.controller("controlPersonaMenu", function($scope, $state, $http, $auth){
 
 });
 
-miApp.controller("controlPersonaAlta", function($scope, $state, $http, FileUploader){
+miApp.controller("controlPersonaAlta", function($scope, $state, $http, $auth, FileUploader){
+
+//Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
 
   $scope.DatoTest="**alta**";
 
@@ -560,7 +597,14 @@ miApp.controller("controlPersonaAlta", function($scope, $state, $http, FileUploa
   
 });
 
-miApp.controller("controlPersonaGrilla", function($scope, $http, $state){  
+miApp.controller("controlPersonaGrilla", function($scope, $http, $state, $auth){  
+  
+  //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+
   $scope.DatoTest="**grilla**";
   console.log("Estoy en la grilla");
   //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
@@ -688,8 +732,15 @@ miApp.controller("controlPersonaGrilla", function($scope, $http, $state){
 
 });
 
-miApp.controller('controlPersonaModificacion', function($scope, $http, $state, $stateParams, FileUploader)//, $routeParams, $location)
+miApp.controller('controlPersonaModificacion', function($scope, $http, $state, $stateParams, $auth, FileUploader)//, $routeParams, $location)
 {
+  
+  //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+
   $scope.verdatos = true;
   $scope.persona={};
   $scope.DatoTest="**Modificar**";
@@ -751,6 +802,7 @@ miApp.controller('controlSalaJuegos', function($scope, $http) {
 
 miApp.controller('controlSalaJuegosMenu', function($scope, $state, $http, $auth) {
 
+//Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( !($auth.isAuthenticated()) )
      {
        $state.go("usuario.iniciarSesion");
@@ -800,7 +852,14 @@ miApp.controller('controlSalaJuegosMenu', function($scope, $state, $http, $auth)
 
 });
 
-miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http){
+miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http, $auth){
+  
+   //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+
   var numeroSecreto=0; 
   var contadorIntentos;
   $scope.datos={};
@@ -847,7 +906,14 @@ miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http){
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http){
+miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http, $auth){
+  
+  //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+
   var numeroSecreto=0; 
   var contadorIntentos;
   $scope.datos={};
@@ -921,7 +987,14 @@ miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http){
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlPiedarPapelTijera1", function($scope, $state, $http){
+miApp.controller("controlPiedarPapelTijera1", function($scope, $state, $http, $auth){
+
+//Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+
 var eleccionMaquina;
 $scope.comenzar=function()
 {
@@ -1005,7 +1078,14 @@ $scope.tijera = function()
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlPiedarPapelTijera2", function($scope, $state, $http){
+miApp.controller("controlPiedarPapelTijera2", function($scope, $state, $http, $auth){
+
+//Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+
 var eleccionMaquina;
 var ContadorDeEmpates=0;
 var ContadorDeGanadas=0;
@@ -1112,7 +1192,13 @@ $scope.mostrarResultado = function()
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http){
+miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http, $auth){
+
+  //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
 
   var totaloperacion;
   var operador;
@@ -1159,7 +1245,14 @@ miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http){
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlAgilidadAritmetica2", function($scope, $state, $http){
+miApp.controller("controlAgilidadAritmetica2", function($scope, $state, $http, $auth){
+  
+  //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
+
   var totaloperacion;
   var operador;
   var tiempo=0;
@@ -1218,7 +1311,13 @@ miApp.controller("controlAgilidadAritmetica2", function($scope, $state, $http){
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlReflejosDaltonicos1", function($scope, $state, $http){
+miApp.controller("controlReflejosDaltonicos1", function($scope, $state, $http, $auth){
+
+ //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
+  if( !($auth.isAuthenticated()) )
+     {
+       $state.go("usuario.iniciarSesion");
+     }
 
 var ColorSecreto;
 var tiempoInicio;
