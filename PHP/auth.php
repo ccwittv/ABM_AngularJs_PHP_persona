@@ -35,6 +35,7 @@ if($usuarioBuscado->password == $user->password)
 
 	$token["username"]="usuario";
 	$token["tipoUsuario"]="admin";
+	$token["email"]=$usuarioBuscado->GetCorreo();
 	//$token es un array
 	$jwt = JWT::encode($token, $key);
 

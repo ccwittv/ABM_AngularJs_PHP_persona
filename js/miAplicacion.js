@@ -862,12 +862,15 @@ miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http, $aut
 
   var numeroSecreto=0; 
   var contadorIntentos;
+  var juego = {};
   $scope.datos={};
   $scope.Comenzar=function(){
+    $scope.datos={};
     //Genero el número RANDOM entre 1 y 100   
     numeroSecreto =Math.floor( Math.random()*100)+1;
     contadorIntentos=0;
     $scope.datos.intentos=contadorIntentos;
+    $scope.resultado = ""; 
   
     //alert(numeroSecreto );
   
@@ -885,10 +888,29 @@ miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http, $aut
     contadorIntentos++;
     $scope.datos.intentos=contadorIntentos;
       //alert(numeroIngresado );
-    if(numeroIngresado==numeroSecreto)
+    //if(numeroIngresado==numeroSecreto)
+     if(numeroIngresado==1) 
       {
          //alert("usted es un ganador!!!, y solo en "+contadorIntentos+" intentos.");
          $scope.resultado= "usted es un ganador!!!, y solo en "+contadorIntentos+" intentos.";
+         
+         juego.usuario = $auth.getPayload().email;
+         var fecha = new Date();
+         var fechajuego = "";
+         juego.fecha = fechajuego.concat(fecha.getFullYear(),fecha.getMonth(),fecha.getDate());
+         var horajuego = "" 
+         juego.hora = horajuego.concat(fecha.getHours(),fecha.getMinutes(),fecha.getSeconds());
+         juego.resultado = contadorIntentos;
+         juego.observacion = "";
+         $http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/' + JSON.stringify(juego))
+            .then(function(respuesta) {        
+               //aca se ejecuta si retorno sin errores        
+               console.log(respuesta.data);
+          },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+              console.log(response);           
+            });
+
       }
     else if(numeroIngresado<numeroSecreto)
       {
@@ -918,12 +940,13 @@ miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http, $aut
   var contadorIntentos;
   $scope.datos={};
     $scope.Comenzar=function(){
-    //Genero el número RANDOM entre 1 y 100   
-    numeroSecreto =Math.floor( Math.random()*100)+1;
-    contadorIntentos=0;
-    $scope.datos.intentos=contadorIntentos;
-  
-    //alert(numeroSecreto );
+      $scope.datos={};
+      //Genero el número RANDOM entre 1 y 100   
+      numeroSecreto =Math.floor( Math.random()*100)+1;
+      contadorIntentos=0;
+      $scope.datos.intentos=contadorIntentos;
+      $scope.resultado = ""; 
+      //alert(numeroSecreto );
   
   }
 
@@ -1205,6 +1228,7 @@ miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http, $
   $scope.datos={};
   $scope.comenzar = function()
   {
+      $scope.datos = {};
       $scope.datos.randomprimernumero = Math.floor( Math.random()*10)+1;
       $scope.datos.randomsegundonumero = Math.floor( Math.random()*10)+1;
     operador = Math.floor( Math.random()*4)+1; 
@@ -1260,6 +1284,8 @@ miApp.controller("controlAgilidadAritmetica2", function($scope, $state, $http, $
   $scope.datos={};
   $scope.comenzar = function()
   {
+      $scope.resultado = "";
+      $scope.datos = {};
       $scope.datos.randomprimernumero = Math.floor( Math.random()*10)+1;
       $scope.datos.randomsegundonumero = Math.floor( Math.random()*10)+1;
     operador = Math.floor( Math.random()*4)+1; 
@@ -1307,7 +1333,7 @@ miApp.controller("controlAgilidadAritmetica2", function($scope, $state, $http, $
        //tiempo = tiempo / 1000. 
        //$scope.resultado = "Incorrecto!! (fin del tiempo)";
        alert("Incorrecto!! (fin del tiempo)");       
-       //clearTimeout(finTiempo);
+       clearTimeout(finTiempo);
   }
 
 });//cada vez que se recarga la pagina se recarga el controlador

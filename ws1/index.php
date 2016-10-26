@@ -176,6 +176,43 @@ $app->delete('/usuario/{id}', function ($request, $response, $args) {
     var_dump($args);
     return $response;
 });
+
+//*************************************  
+// PARA SALA DE JUEGOS
+//*************************************
+//GET: para consultar y leer recursos
+$app->get('/juegos[/]', function ($request, $response, $args) {
+    $response->write("Lista de usuarios");
+    return $response;
+});
+
+//GET: para consultar y leer un solo recurso
+$app->get('/juego[/{id}[/{name}]]', function ($request, $response, $args) {
+    $response->write("Datos usuario ");
+    var_dump($args);
+    return $response;
+});
+/* POST: Para crear recursos */
+$app->post('/juego/{id}', function ($request, $response, $args) {
+    $response->write("Welcome to Slim!");
+    var_dump($args);
+    return $response;
+});
+
+// /* PUT: Para editar recursos */
+$app->put('/juego/{id}', function ($request, $response, $args) {
+    $response->write("Welcome to Slim!");
+    var_dump($args);    
+    return $response;
+});
+
+// /* DELETE: Para eliminar recursos */
+$app->delete('/juego/{id}', function ($request, $response, $args) {
+    $response->write("borrar !", $args->id);
+    var_dump($args);
+    return $response;
+});
+
 /**
  * Step 4: Run the Slim application
  *
