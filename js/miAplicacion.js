@@ -852,7 +852,7 @@ miApp.controller('controlSalaJuegosMenu', function($scope, $state, $http, $auth)
 
 });
 
-miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http, $auth){
+miApp.controller("controlAdivinaElNumero1", function($scope, serviciosApps, $state, $http, $auth){
   
    //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( !($auth.isAuthenticated()) )
@@ -902,14 +902,23 @@ miApp.controller("controlAdivinaElNumero1", function($scope, $state, $http, $aut
          juego.hora = horajuego.concat(fecha.getHours(),fecha.getMinutes(),fecha.getSeconds());
          juego.resultado = contadorIntentos;
          juego.observacion = "";
-         $http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/' + JSON.stringify(juego))
-            .then(function(respuesta) {        
+         serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+                .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
-               console.log(respuesta.data);
-          },function errorCallback(response) {        
+                   console.info('Respuesta del servicio: ',respuesta);
+                },function errorCallback(response) {        
               //aca se ejecuta cuando hay errores
-              console.log(response);           
-            });
+                    console.log(response);           
+                });
+
+         // $http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/' + JSON.stringify(juego))
+         //    .then(function(respuesta) {        
+         //       //aca se ejecuta si retorno sin errores        
+         //       console.log(respuesta.data);
+         //  },function errorCallback(response) {        
+         //      //aca se ejecuta cuando hay errores
+         //      console.log(response);           
+         //    });
 
       }
     else if(numeroIngresado<numeroSecreto)

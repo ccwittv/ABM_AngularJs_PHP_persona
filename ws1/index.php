@@ -194,7 +194,7 @@ $app->get('/juego[/{id}[/{name}]]', function ($request, $response, $args) {
 });
 /* POST: Para crear recursos */
 $app->post('/juego/{id}', function ($request, $response, $args) {
-    $response->write("Welcome to Slim!");
+    $response->write("Welcome to Slim Sala de juegos! ");
     var_dump($args);
     return $response;
 });
