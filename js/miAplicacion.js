@@ -1045,7 +1045,7 @@ miApp.controller("controlAdivinaElNumero2", function($scope, serviciosApps, $sta
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlPiedarPapelTijera1", function($scope, $state, $http, $auth){
+miApp.controller("controlPiedarPapelTijera1", function($scope, serviciosApps, $state, $http, $auth){
 
 //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( !($auth.isAuthenticated()) )
@@ -1094,7 +1094,55 @@ $scope.piedra = function()
   {
     $scope.resultado="ganó la Máquina.";
   }
-  //Se graba el resultado en la base de datos        
+  
+//Se graba el resultado en la base de datos          
+    grabarResultado();
+    $scope.comenzar();
+}//FIN DE LA FUNCIÓN
+
+$scope.papel = function()
+{
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
+  eleccionHumano="papel";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate.";
+  }
+  else if(eleccionMaquina=="piedra")
+  {
+    $scope.resultado="vos ganastes.";
+  }
+  else
+  {
+    $scope.resultado="ganó la Máquina.";
+  }
+//Se graba el resultado en la base de datos            
+  grabarResultado();  
+  $scope.comenzar();
+}//FIN DE LA FUNCIÓN
+
+$scope.tijera = function()
+{
+  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
+  eleccionHumano="tijera";
+  if(eleccionHumano==eleccionMaquina)
+  {
+    $scope.resultado="empate."; 
+  }
+  else if(eleccionMaquina=="papel")
+  {
+    $scope.resultado="vos ganastes.";
+  }
+  else
+  {
+    $scope.resultado="ganó la Máquina.";
+  }
+//Se graba el resultado en la base de datos          
+  grabarResultado();  
+  $scope.comenzar();
+}//FIN DE LA FUNCIÓN
+
+function grabarResultado () {
     juego.usuario = $auth.getPayload().email;         
     juego.juego = "PiedarPapelTijera1";    
     switch($scope.resultado)
@@ -1118,50 +1166,11 @@ $scope.piedra = function()
               //aca se ejecuta cuando hay errores
                     console.info('ERROR Respuesta del servicio: ',response);           
                 });
-    $scope.comenzar();
-}//FIN DE LA FUNCIÓN
-
-$scope.papel = function()
-{
-  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
-  eleccionHumano="papel";
-  if(eleccionHumano==eleccionMaquina)
-  {
-    $scope.resultado="empate.";
-  }
-  else if(eleccionMaquina=="piedra")
-  {
-    $scope.resultado="vos ganastes.";
-  }
-  else
-  {
-    $scope.resultado="ganó la Máquina.";
-  }
-  $scope.comenzar();
-}//FIN DE LA FUNCIÓN
-
-$scope.tijera = function()
-{
-  $scope.seleccionMaquina="la máquina seleccionó: "+eleccionMaquina;
-  eleccionHumano="tijera";
-  if(eleccionHumano==eleccionMaquina)
-  {
-    $scope.resultado="empate."; 
-  }
-  else if(eleccionMaquina=="papel")
-  {
-    $scope.resultado="vos ganastes.";
-  }
-  else
-  {
-    $scope.resultado="ganó la Máquina.";
-  }
-  $scope.comenzar();
-}//FIN DE LA FUNCIÓN
+    }
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlPiedarPapelTijera2", function($scope, $state, $http, $auth){
+miApp.controller("controlPiedarPapelTijera2", function($scope, serviciosApps, $state, $http, $auth){
 
 //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( !($auth.isAuthenticated()) )
@@ -1173,6 +1182,7 @@ var eleccionMaquina;
 var ContadorDeEmpates=0;
 var ContadorDeGanadas=0;
 var ContadorDePerdidas=0;
+var juego = {};
 $scope.datos={};
 $scope.comenzar=function()
 {
@@ -1216,6 +1226,8 @@ $scope.piedra = function()
     $scope.resultado="ganó la máquina.";
     ContadorDePerdidas++;
   }
+//Se graba el resultado en la base de datos          
+  grabarResultado();    
   $scope.mostrarResultado();
 }//FIN DE LA FUNCIÓN
 
@@ -1238,6 +1250,8 @@ $scope.papel = function()
     $scope.resultado="ganó la máquina.";
     ContadorDePerdidas++;
   }
+//Se graba el resultado en la base de datos          
+  grabarResultado();    
   $scope.mostrarResultado();
 }//FIN DE LA FUNCIÓN
 
@@ -1260,6 +1274,8 @@ $scope.tijera = function()
     $scope.resultado="ganó la máquina.";
     ContadorDePerdidas++;
   }
+//Se graba el resultado en la base de datos          
+  grabarResultado();    
   $scope.mostrarResultado();
 }//FIN DE LA FUNCIÓN
 
@@ -1273,9 +1289,35 @@ $scope.mostrarResultado = function()
   $scope.comenzar();
 }
 
+function grabarResultado () {
+    juego.usuario = $auth.getPayload().email;         
+    juego.juego = "PiedarPapelTijera2";    
+    switch($scope.resultado)
+    {
+      case "empate":
+        juego.resultado = "empate";
+        break;
+      case "vos ganastes.":
+        juego.resultado = "humano";
+        break;
+      case "ganó la Máquina.":
+        juego.resultado = "máquina";
+        break;
+    }
+    juego.observacion = "";
+    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+                .then(function(respuesta) {        
+               //aca se ejecuta si retorno sin errores        
+                   console.info('Respuesta del servicio: ',respuesta);
+                },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                    console.info('ERROR Respuesta del servicio: ',response);           
+                });
+    }
+
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http, $auth){
+miApp.controller("controlAgilidadAritmetica1", function($scope, serviciosApps, $state, $http, $auth){
 
   //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( !($auth.isAuthenticated()) )
@@ -1286,6 +1328,7 @@ miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http, $
   var totaloperacion;
   var operador;
   $scope.datos={};
+  var juego = {};
   $scope.comenzar = function()
   {
       $scope.datos = {};
@@ -1324,7 +1367,21 @@ miApp.controller("controlAgilidadAritmetica1", function($scope, $state, $http, $
      {
            $scope.resultado = "Incorrecto!!";
      } 
-       $scope.comenzar();
+//Se graba el juego en la base de datos    
+    juego.usuario = $auth.getPayload().email;         
+    juego.juego = "AgilidadAritmetica1";    
+    juego.resultado = $scope.resultado;    
+    juego.observacion = $scope.datos.randomoperador;
+    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+                .then(function(respuesta) {        
+               //aca se ejecuta si retorno sin errores        
+                   console.info('Respuesta del servicio: ',respuesta);
+                },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                    console.info('ERROR Respuesta del servicio: ',response);           
+                });  
+       
+    $scope.comenzar();
   }//FIN DE LA FUNCIÓN
 
 });//cada vez que se recarga la pagina se recarga el controlador
