@@ -110,11 +110,11 @@ class Usuario
 			
 			$this->apellido = $obj->apellido;
 			$this->nombre = $obj->nombre;
-			$this->dni = $dni;
+			$this->dni = $obj->$dni;
 			$this->sexo = $obj->sexo;
 			$this->estado_civil = $obj->estado_civil;
 			$this->fecha_nac = $obj->fecha_nac;
-			$this->correo = $obj->correo;
+			$this->correo = $correo;
 			$this->password = $obj->password;
 			$this->lenguaje_prog = $obj->lenguaje_prog;
 

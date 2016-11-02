@@ -7,11 +7,11 @@ angular
       return $http.post(URL + JSON.stringify(objetoInsertar))
                 .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
-                   console.info('Respuesta Slim:',respuesta.data);
+                   console.info('Respuesta Slim: ',respuesta.data);
                    return respuesta.data;
                 },function errorCallback(response) {        
               //aca se ejecuta cuando hay errores
-                    console.log(response);
+                    console.info('ERROR Slim: ',response);
                     return response.data;           
                 });
     }

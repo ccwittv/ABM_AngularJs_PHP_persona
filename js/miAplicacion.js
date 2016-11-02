@@ -507,7 +507,7 @@ miApp.controller("controlPersonaMenu", function($scope, $state, $http, $auth){
 
 });
 
-miApp.controller("controlPersonaAlta", function($scope, $state, $http, $auth, FileUploader){
+miApp.controller("controlPersonaAlta", function($scope, serviciosApps, $state, $http, $auth, FileUploader){
 
 //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( !($auth.isAuthenticated()) )
@@ -532,9 +532,9 @@ miApp.controller("controlPersonaAlta", function($scope, $state, $http, $auth, Fi
   $scope.uploader.onSuccessItem=function(item, response, status, headers)
   {
   //$http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
-  $http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify($scope.persona))
-  //$http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + "4")
-    .then(function(respuesta) {        
+  
+  /*$http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify($scope.persona))
+      .then(function(respuesta) {        
        //aca se ejetuca si retorno sin errores        
      console.log(respuesta.data);
      $state.go("persona.grilla");
@@ -542,7 +542,17 @@ miApp.controller("controlPersonaAlta", function($scope, $state, $http, $auth, Fi
   },function errorCallback(response) {        
       //aca se ejecuta cuando hay errores
       console.log( response);           
-    });
+    }); */
+    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/',$scope.persona)
+                  .then(function(respuesta) {        
+                 //aca se ejecuta si retorno sin errores        
+                     console.info('Respuesta del servicio: ',respuesta);
+                      $state.go("persona.grilla");
+                  },function errorCallback(response) {        
+                //aca se ejecuta cuando hay errores
+                      console.info('ERROR Respuesta del servicio: ',response);           
+                  });
+    
   console.info("Ya guardé el archivo.", item, response, status, headers);
   };
 
@@ -888,19 +898,20 @@ miApp.controller("controlAdivinaElNumero1", function($scope, serviciosApps, $sta
     contadorIntentos++;
     $scope.datos.intentos=contadorIntentos;
       //alert(numeroIngresado );
-    //if(numeroIngresado==numeroSecreto)
-     if(numeroIngresado==1) 
+    if(numeroIngresado==numeroSecreto)     
       {
          //alert("usted es un ganador!!!, y solo en "+contadorIntentos+" intentos.");
          $scope.resultado= "usted es un ganador!!!, y solo en "+contadorIntentos+" intentos.";
-         
+
+//Se graba el resultado en la base de datos         
          juego.usuario = $auth.getPayload().email;
-         var fecha = new Date();
+         /*var fecha = new Date();
          var fechajuego = "";
          juego.fecha = fechajuego.concat(fecha.getFullYear(),fecha.getMonth(),fecha.getDate());
-         var horajuego = "" 
-         juego.hora = horajuego.concat(fecha.getHours(),fecha.getMinutes(),fecha.getSeconds());
-         juego.resultado = contadorIntentos;
+         var horajuego = "";
+         juego.hora = horajuego.concat(fecha.getHours(),fecha.getMinutes(),fecha.getSeconds());*/
+         juego.juego = "AdivinaElNumero1";
+         juego.resultado = contadorIntentos.toString();
          juego.observacion = "";
          serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
                 .then(function(respuesta) {        
@@ -908,9 +919,10 @@ miApp.controller("controlAdivinaElNumero1", function($scope, serviciosApps, $sta
                    console.info('Respuesta del servicio: ',respuesta);
                 },function errorCallback(response) {        
               //aca se ejecuta cuando hay errores
-                    console.log(response);           
+                    console.info('ERROR Respuesta del servicio: ',response);           
                 });
 
+// Se graba el resultado sin utilizar servisios
          // $http.post('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/' + JSON.stringify(juego))
          //    .then(function(respuesta) {        
          //       //aca se ejecuta si retorno sin errores        
@@ -937,7 +949,7 @@ miApp.controller("controlAdivinaElNumero1", function($scope, serviciosApps, $sta
 
 });//cada vez que se recarga la pagina se recarga el controlador
 
-miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http, $auth){
+miApp.controller("controlAdivinaElNumero2", function($scope, serviciosApps, $state, $http, $auth){
   
   //Se controla si el usuario está autenticado, sino se envía al inicio de sesión
   if( !($auth.isAuthenticated()) )
@@ -945,6 +957,7 @@ miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http, $aut
        $state.go("usuario.iniciarSesion");
      }
 
+  var juego = {};
   var numeroSecreto=0; 
   var contadorIntentos;
   $scope.datos={};
@@ -1004,6 +1017,19 @@ miApp.controller("controlAdivinaElNumero2", function($scope, $state, $http, $aut
             
             break;
         }
+//Se graba el resultado en la base de datos        
+        juego.usuario = $auth.getPayload().email;         
+        juego.juego = "AdivinaElNumero2";
+        juego.resultado = contadorIntentos.toString();
+        juego.observacion = $scope.resultado;
+        serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+                .then(function(respuesta) {        
+               //aca se ejecuta si retorno sin errores        
+                   console.info('Respuesta del servicio: ',respuesta);
+                },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                    console.info('ERROR Respuesta del servicio: ',response);           
+                });
       } 
     else if(numeroIngresado<numeroSecreto)
       {
@@ -1028,6 +1054,7 @@ miApp.controller("controlPiedarPapelTijera1", function($scope, $state, $http, $a
      }
 
 var eleccionMaquina;
+var juego = {};
 $scope.comenzar=function()
 {
   //Genero el número RANDOM entre 1 y 3
@@ -1067,6 +1094,30 @@ $scope.piedra = function()
   {
     $scope.resultado="ganó la Máquina.";
   }
+  //Se graba el resultado en la base de datos        
+    juego.usuario = $auth.getPayload().email;         
+    juego.juego = "PiedarPapelTijera1";    
+    switch($scope.resultado)
+    {
+      case "empate":
+        juego.resultado = "empate";
+        break;
+      case "vos ganastes.":
+        juego.resultado = "humano";
+        break;
+      case "ganó la Máquina.":
+        juego.resultado = "máquina";
+        break;
+    }
+    juego.observacion = "";
+    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+                .then(function(respuesta) {        
+               //aca se ejecuta si retorno sin errores        
+                   console.info('Respuesta del servicio: ',respuesta);
+                },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                    console.info('ERROR Respuesta del servicio: ',response);           
+                });
     $scope.comenzar();
 }//FIN DE LA FUNCIÓN
 

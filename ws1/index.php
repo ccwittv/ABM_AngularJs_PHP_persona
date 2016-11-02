@@ -1,5 +1,6 @@
 <?php
 include "../PHP/clases/Personas.php";
+include "../PHP/clases/Juegos.php";
 
 /**
  * Step 1: Require the Slim Framework using Composer's autoloader
@@ -193,10 +194,18 @@ $app->get('/juego[/{id}[/{name}]]', function ($request, $response, $args) {
     return $response;
 });
 /* POST: Para crear recursos */
-$app->post('/juego/{id}', function ($request, $response, $args) {
-    $response->write("Welcome to Slim Sala de juegos! ");
+$app->post('/juego/{unJuego}', function ($request, $response, $args) {
+    /*$response->write("Welcome to Slim Sala de juegos! ");
     var_dump($args);
-    return $response;
+    return $response;*/
+    $respuesta = json_decode($args['unJuego']);// decodifica un string de JSON    
+    
+    //var_dump($respuesta);    
+    echo json_encode($respuesta);    
+        
+    Juego::InsertarJuego($respuesta);
+    
+
 });
 
 // /* PUT: Para editar recursos */
