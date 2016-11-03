@@ -543,7 +543,7 @@ miApp.controller("controlPersonaAlta", function($scope, serviciosApps, $state, $
       //aca se ejecuta cuando hay errores
       console.log( response);           
     }); */
-    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/',$scope.persona)
+    serviciosApps.insertar('persona',$scope.persona)
                   .then(function(respuesta) {        
                  //aca se ejecuta si retorno sin errores        
                      console.info('Respuesta del servicio: ',respuesta);
@@ -619,7 +619,7 @@ miApp.controller("controlPersonaGrilla", function($scope, serviciosApps, $http, 
   console.log("Estoy en la grilla");
   //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
   //$http.get('http://localhost/ABM_AngularJs_PHP_persona/ws1/personas')
-  serviciosApps.traerTodo('http://localhost/ABM_AngularJs_PHP_persona/ws1/personas')
+  serviciosApps.traerTodo('personas')
   .then(function(respuesta) {        
              //$scope.ListadoPersonas = respuesta.data.listado;
              //console.log(respuesta.data);
@@ -687,13 +687,13 @@ miApp.controller("controlPersonaGrilla", function($scope, serviciosApps, $http, 
 
     //$http.post("PHP/nexo.php",{datos:{accion :"borrar",persona:persona}},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
     //$http.delete('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify(persona))
-    serviciosApps.borrar('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/',persona) 
+    serviciosApps.borrar('persona',persona) 
      .then(function(respuesta) {       
              //aca se ejetuca si retorno sin errores        
              console.log(respuesta.data);
          //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
         //$http.get('http://localhost/ABM_AngularJs_PHP_persona/ws1/personas')
-        serviciosApps.traerTodo('http://localhost/ABM_AngularJs_PHP_persona/ws1/personas')
+        serviciosApps.traerTodo('personas')
         .then(function(respuesta) {       
 
            //$scope.ListadoPersonas = respuesta.data.listado;
@@ -775,7 +775,7 @@ miApp.controller('controlPersonaModificacion', function($scope, serviciosApps, $
   {
     //$http.post('PHP/nexo.php', { datos: {accion :"modificar",persona:$scope.persona}})
     //$http.put('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify($scope.persona))
-    serviciosApps.modificar('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/',$scope.persona)
+    serviciosApps.modificar('persona',$scope.persona)
     .then(function(respuesta) 
     {
       //aca se ejecuta si retorno sin errores       
@@ -801,7 +801,7 @@ miApp.controller('controlPersonaModificacion', function($scope, serviciosApps, $
     else
     {
        //$http.put('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/' + JSON.stringify($scope.persona))
-       serviciosApps.modificar('http://localhost/ABM_AngularJs_PHP_persona/ws1/persona/',$scope.persona)
+       serviciosApps.modificar('persona',$scope.persona)
         .then(function(respuesta) 
         {
           //aca se ejecuta si retorno sin errores       
@@ -926,7 +926,7 @@ miApp.controller("controlAdivinaElNumero1", function($scope, serviciosApps, $sta
          juego.juego = "AdivinaElNumero1";
          juego.resultado = contadorIntentos.toString();
          juego.observacion = "intentos";
-         serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+         serviciosApps.insertar('juego',juego)
                 .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
                    console.info('Respuesta del servicio: ',respuesta);
@@ -1035,7 +1035,7 @@ miApp.controller("controlAdivinaElNumero2", function($scope, serviciosApps, $sta
         juego.juego = "AdivinaElNumero2";
         juego.resultado = contadorIntentos.toString();
         juego.observacion = $scope.resultado;
-        serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+        serviciosApps.insertar('juego',juego)
                 .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
                    console.info('Respuesta del servicio: ',respuesta);
@@ -1171,7 +1171,7 @@ function grabarResultado () {
         break;
     }
     juego.observacion = "";
-    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+    serviciosApps.insertar('juego',juego)
                 .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
                    console.info('Respuesta del servicio: ',respuesta);
@@ -1318,7 +1318,7 @@ function grabarResultado () {
         break;
     }
     juego.observacion = "";
-    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+    serviciosApps.insertar('juego',juego)
                 .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
                    console.info('Respuesta del servicio: ',respuesta);
@@ -1385,7 +1385,7 @@ miApp.controller("controlAgilidadAritmetica1", function($scope, serviciosApps, $
     juego.juego = "AgilidadAritmetica1";    
     juego.resultado = $scope.resultado;    
     juego.observacion = $scope.datos.randomoperador;
-    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+    serviciosApps.insertar('juego',juego)
                 .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
                    console.info('Respuesta del servicio: ',respuesta);
@@ -1476,7 +1476,7 @@ miApp.controller("controlAgilidadAritmetica2", function($scope, serviciosApps, $
     juego.juego = "AgilidadAritmetica2";    
     juego.resultado = resultado;    
     juego.observacion = $scope.datos.randomoperador;
-    serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+    serviciosApps.insertar('juego',juego)
                 .then(function(respuesta) {        
                //aca se ejecuta si retorno sin errores        
                    console.info('Respuesta del servicio: ',respuesta);
@@ -1552,7 +1552,7 @@ miApp.controller("controlReflejosDaltonicos1", function($scope, serviciosApps, $
           juego.juego = "ReflejosDaltonicos1";    
           juego.resultado = resultado;    
           juego.observacion = "milisegundos";
-          serviciosApps.insertar('http://localhost/ABM_AngularJs_PHP_persona/ws1/juego/',juego)
+          serviciosApps.insertar('juego',juego)
                       .then(function(respuesta) {        
                      //aca se ejecuta si retorno sin errores        
                          console.info('Respuesta del servicio: ',respuesta);
